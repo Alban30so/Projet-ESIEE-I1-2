@@ -6,25 +6,28 @@
 
 #include <SDL/SDL.h>
 
-int main ( int argc, char** argv )
-{
+
+int main ( int argc, char** argv ){
+
+
+
+
+
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
     // create a new window
     SDL_Surface* screen = SDL_SetVideoMode(1200,700, 16,
                                            SDL_HWSURFACE|SDL_DOUBLEBUF);
     // load an image
-    SDL_Surface* bmp = SDL_LoadBMP("cb.bmp");
+    SDL_Surface* bmp = SDL_LoadBMP("plateau.bmp");
     if (!bmp)
     {
         printf("Unable to load bitmap: %s\n", SDL_GetError());
         return 1;
     }
 
-    // centre the bitmap on screen
-    SDL_Rect dstrect;
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;
+    // centre the image
+    SDL_Rect dstrect={0,0,500,50};
 
     // program main loop
     bool done = false;
