@@ -241,3 +241,8 @@
 	"begin_code.h"
 	"close_code.h"
 
+1644576425 source:c:\users\alban trentesaux\documents\esiee\cours\algorithmique et programmation\projet 2\projet-esiee-i1-2\projeti1-2\main.cpp
+	<cstdlib>
+	<stdlib.h>
+	<SDL/SDL.h>
+

@@ -1,23 +1,19 @@
-#ifdef __cplusplus
-    #include <cstdlib>
-#else
-    #include <stdlib.h>
-#endif
+#include <SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <SDL/SDL.h>
+int main (int argc, char **argv){
+    SDL_Init(SDL_INIT_EVERYTHING);
 
 
+    return 0;
+}
+/*
 int main ( int argc, char** argv ){
-
-
-
-
-
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(1200,700, 16,
-                                           SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(1200,700, 16,SDL_HWSURFACE|SDL_DOUBLEBUF);
     // load an image
     SDL_Surface* bmp = SDL_LoadBMP("plateau.bmp");
     if (!bmp)
@@ -27,7 +23,7 @@ int main ( int argc, char** argv ){
     }
 
     // centre the image
-    SDL_Rect dstrect={0,0,500,50};
+    SDL_Rect dstrect={0,0,640,480};
 
     // program main loop
     bool done = false;
