@@ -5,6 +5,7 @@ typedef struct cases
     int nbcase;//Numéro de la case
     int equipe;//Equipe de la case, 0 si neutre
     int occupation;// Ocupation de la case 0/1
+    int aff;//Affichage du pion "  " si vide
 }cases;
 typedef struct pions
 {
@@ -85,8 +86,24 @@ void test(cases p[121]){
         printf("Numero de case : %i   || equipe : %i\n",p[i].nbcase,p[i].equipe);
     }
 }
+//La variable aff des cases est changé en fonction de si elle est remplie ou pas
+//Si oui alors il sera affiché "  " sinon il sera affiché le numéro de l'équipe.
+int prescases(cases p[121],pions j[60],int i){
+    int temp;
+    if(p[i].occupation==0){
+        temp=j[i].equipe;
+    }
+    else{
+        temp=0;
+    }
+    return temp;
+}
+void affichage(cases p[121], pions j[60]){
+
+}
 int main(){
     cases plateau[121];
+    pions joueurs[60];
     reset(plateau);
     saisiecases(plateau);
     test(plateau);
