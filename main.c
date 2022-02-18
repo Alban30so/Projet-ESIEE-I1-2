@@ -6,6 +6,11 @@ typedef struct cases
     int equipe;//Equipe de la case, 0 si neutre
     int occupation;// Ocupation de la case 0/1
 }cases;
+typedef struct pions
+{
+    int pcase;//case occupée par le pion
+    int equipe;//equipe de ce pion
+}pions;
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[121]){
     int i;
