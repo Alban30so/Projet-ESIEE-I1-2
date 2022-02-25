@@ -111,8 +111,70 @@ void affichage(cases p[121], pions j[60]){
             printf("\n");
             compt+=1;
         }
+        if(l==2||l==16){
+            for(espace=0;espace<8;espace++){
+                printf("  ");
+            }
+            printf(" |%i|%i|",p[compt].equipe,p[compt+1].equipe);
+            printf("\n");
+            compt+=2;
+        }
+        if(l==3||l==15){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+            }
+        }
+        if(l==4||l==14){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+        }
+        if(l==5||l==13){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+        }
+        if(l==6||l==12){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+        }
+        if(l==7||l==11){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+        }
+        if(l==8||l==10){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("\n");
+            compt+=3;
+        }
+        if(l==9){
+            for(espace=0;espace<4;espace++){
+                
+            }
+        }
     }
-}
+
 
 int main(){
     cases plateau[121];
