@@ -23,61 +23,77 @@ void reset(cases p[122]){
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
-void saisiecases(cases p[122]){
+void saisiecases(cases p[122],int nbj){
     //cette fonciton saisie par défaut les cases pour un début de parti.
-    int i;
+    int i,t1,t2,t3,t4;
+    if(nbj==2){
+        t1=2;
+    }
+    else if(nbj==4){
+        t1=4;
+        t2=3;
+    }
+    else if(nbj==6){
+        t1=6;
+        t2=5;
+    }
     //saisie des numéros de cases automatiquement.
     for(i=1;i<122;i++){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
     for(i=0;i<122;i++){
+        //Deux joueurs ou plus : Equipe Bleu et Jaune
         if(p[i].nbcase<=10&&p[i].nbcase>=0){
             p[i].equipe=1;//Equipe Bleu
         }
-        //Equipe rouge
-        if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-            p[i].equipe=2;
-        }
-        //Equipe blanche
-        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-            p[i].equipe=3;
-        }
-        //Equipe noire
-        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-            p[i].equipe=4;
-        }
-        //Equipe verte
-        if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-            p[i].equipe=5;
-        }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=6;
+            p[i].equipe=t1;
+        }
+        if(nbj>=4){
+            if(nbj==6){
+                //Equipe blanche
+                if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
+                    p[i].equipe=3;
+                }
+                else if(p[i].nbcase>=20&&p[i].nbcase<=23){
+                    p[i].equipe=3;
+                }
+                else if(p[i].nbcase>=33&&p[i].nbcase<=35){
+                    p[i].equipe=3;
+                }
+                //Equipe noire
+                if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
+                    p[i].equipe=4;
+                }
+                else if(p[i].nbcase>=99&&p[i].nbcase<=102){
+                    p[i].equipe=4;
+                }
+                else if(p[i].nbcase>=87&&p[i].nbcase<=89){
+                    p[i].equipe=4;
+                }
+            }
+            //Equipe rouge
+            if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
+                p[i].equipe=2;
+            }
+            else if(p[i].nbcase<=14&&p[i].nbcase>=11){
+                p[i].equipe=2;
+            }
+            else if(p[i].nbcase<=26&&p[i].nbcase>=24){
+                p[i].equipe=2;
+            }
+            //Equipe verte
+            if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
+                p[i].equipe=t2;
+            }
+            else if(p[i].nbcase>=96&&p[i].nbcase<=98){
+                p[i].equipe=t2;
+            }
+            else if(p[i].nbcase>=108&&p[i].nbcase<=111){
+                p[i].equipe=t2;
+            }
         }
     }
 }
@@ -177,13 +193,40 @@ void affichage(cases p[122], pions j[60]){
         }
     }
 }
-
+int menu(){
+    int nbj;
+    printf("Bienvenue aux dames chinoises ! \n entrez le nombre de joueurs : \n");
+    printf("1 joueur contre l'ordinateur : tapez 1\n");
+    printf("2 joueurs sur le meme ordinateur : tapez 2\n");
+    printf("4 joueurs sur le meme ordinateur : tapez 4\n");
+    printf("6 joueurs sur le même ordinateur : tapez 6\n");
+    scanf("%i",&nbj);
+    switch (nbj)
+    {
+    case 1:
+        return 1;
+        break;
+    case 2: 
+        return 2;
+        break;
+    case 4:
+        return 4;
+        break;
+    case 6 : 
+        return 6;
+        break;
+    default:printf("Erreur de saisie, veuillez relancer.");
+        return 0;
+        break;
+    }
+}
 
 int main(){
     cases plateau[122];
     pions joueurs[60];
     reset(plateau);
-    saisiecases(plateau);
+    int nbj=menu();
+    saisiecases(plateau,nbj);
     test(plateau);
     affichage(plateau,joueurs);
     printf("A vous de jouer !\n");
