@@ -107,7 +107,7 @@ void affichage(cases p[121], pions j[60]){
             for(espace=0;espace<9;espace++){
                 printf("  ");
             }
-            printf("/%i\\",p[compt].aff);
+            printf("|%i|",p[compt].equipe);
             printf("\n");
             compt+=1;
         }
