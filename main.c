@@ -100,7 +100,7 @@ int prescases(cases p[121],pions j[60],int i){
     return temp;
 }
 void affichage(cases p[121], pions j[60]){
-    int l,compt=0;//variable représentant la ligne d'affichage
+    int l,compt=0;//variable représentant la ligne d'affichage 
     int espace;
     for(l=0;l<18;l++){
         if(l==1||l==17){
