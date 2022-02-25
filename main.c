@@ -100,7 +100,7 @@ int prescases(cases p[121],pions j[60],int i){
     return temp;
 }
 void affichage(cases p[121], pions j[60]){
-    int l,compt=0;//variable représentant la ligne d'affichage
+    int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     for(l=0;l<18;l++){
         if(l==1||l==17){
@@ -126,54 +126,57 @@ void affichage(cases p[121], pions j[60]){
             printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
             printf("\n");
             compt+=3;
-            }
         }
         if(l==4||l==14){
-            for(espace=0;espace<6;espace++){
+            for(espace=0;espace<7;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe);
+            printf(" |%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe);
             printf("\n");
             compt+=4;
         }
         if(l==5||l==13){
-            for(espace=0;espace<5;espace++){
+            for(espace=0;espace<2;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe,p[compt+12].equipe);
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe,p[compt+12].equipe);
             printf("\n");
-            compt+=3;
+            compt+=13;
         }
         if(l==6||l==12){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<3;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|%i|%i",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf(" |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe);
             printf("\n");
-            compt+=3;
+            compt+=12;
         }
         if(l==7||l==11){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe);
             printf("\n");
-            compt+=3;
+            compt+=11;
         }
         if(l==8||l==10){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf(" |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe);
             printf("\n");
-            compt+=3;
+            compt+=10;
         }
         if(l==9){
             for(espace=0;espace<4;espace++){
-                
+                printf("  ");
             }
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe);
+            printf("\n");
+            compt+=9;
         }
     }
+}
 
 
 int main(){
@@ -183,5 +186,5 @@ int main(){
     saisiecases(plateau);
     //test(plateau);
     affichage(plateau,joueurs);
-    printf("Hello World");
+    printf("A vous de jouer !\n");
 }
