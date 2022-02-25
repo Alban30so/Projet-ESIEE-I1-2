@@ -13,7 +13,7 @@ typedef struct pions
     int equipe;//equipe de ce pion
 }pions;
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
-void reset(cases p[121]){
+void reset(cases p[122]){
     int i;
     for(i=0;i<122;i++){
         p[i].nbcase=0;
@@ -23,7 +23,7 @@ void reset(cases p[121]){
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
-void saisiecases(cases p[121]){
+void saisiecases(cases p[122]){
     //cette fonciton saisie par défaut les cases pour un début de parti.
     int i;
     //saisie des numéros de cases automatiquement.
@@ -31,7 +31,7 @@ void saisiecases(cases p[121]){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
-    for(i=0;i<121;i++){
+    for(i=0;i<122;i++){
         if(p[i].nbcase<=10&&p[i].nbcase>=0){
             p[i].equipe=1;//Equipe Bleu
         }
@@ -81,7 +81,7 @@ void saisiecases(cases p[121]){
         }
     }
 }
-void test(cases p[121]){
+void test(cases p[122]){
     int i;
     for(i=0;i<121;i++){
         printf("Numero de case : %i   || equipe : %i\n",p[i].nbcase,p[i].equipe);
@@ -89,7 +89,7 @@ void test(cases p[121]){
 }
 //La variable aff des cases est changé en fonction de si elle est remplie ou pas
 //Si oui alors il sera affiché "  " sinon il sera affiché le numéro de l'équipe.
-int prescases(cases p[121],pions j[60],int i){
+int prescases(cases p[122],pions j[60],int i){
     int temp;
     if(p[i].occupation==0){
         temp=j[i].equipe;
@@ -99,7 +99,7 @@ int prescases(cases p[121],pions j[60],int i){
     }
     return temp;
 }
-void affichage(cases p[121], pions j[60]){
+void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     for(l=0;l<18;l++){
@@ -180,11 +180,11 @@ void affichage(cases p[121], pions j[60]){
 
 
 int main(){
-    cases plateau[121];
+    cases plateau[122];
     pions joueurs[60];
     reset(plateau);
     saisiecases(plateau);
-    //test(plateau);
+    test(plateau);
     affichage(plateau,joueurs);
-    printf("Hello World");
+    printf("A vous de jouer !\n");
 }
