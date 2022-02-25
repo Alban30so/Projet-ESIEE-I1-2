@@ -19,6 +19,7 @@ void reset(cases p[121]){
         p[i].nbcase=0;
         p[i].equipe=0;
         p[i].occupation=0;
+        p[i].aff=0;
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
@@ -99,13 +100,26 @@ int prescases(cases p[121],pions j[60],int i){
     return temp;
 }
 void affichage(cases p[121], pions j[60]){
-
+    int l,compt=0;//variable représentant la ligne d'affichage
+    int espace;
+    for(l=0;l<18;l++){
+        if(l==1||l==17){
+            for(espace=0;espace<9;espace++){
+                printf("  ");
+            }
+            printf("/%i\\",p[compt].aff);
+            printf("\n");
+            compt+=1;
+        }
+    }
 }
+
 int main(){
     cases plateau[121];
     pions joueurs[60];
     reset(plateau);
     saisiecases(plateau);
-    test(plateau);
+    //test(plateau);
+    affichage(plateau,joueurs);
     printf("Hello World");
 }
