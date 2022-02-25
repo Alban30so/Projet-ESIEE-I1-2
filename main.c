@@ -148,30 +148,33 @@ void affichage(cases p[121], pions j[60]){
             for(espace=0;espace<7;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe);
             printf("\n");
-            compt+=3;
+            compt+=12;
         }
         if(l==7||l==11){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<2;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe);
             printf("\n");
-            compt+=3;
+            compt+=10;
         }
         if(l==8||l==10){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<3;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe);
             printf("\n");
-            compt+=3;
+            compt+=8;
         }
         if(l==9){
             for(espace=0;espace<4;espace++){
-                
+                printf("  ");
             }
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe);
+            printf("\n");
+            compt+=9;
         }
     }
 
