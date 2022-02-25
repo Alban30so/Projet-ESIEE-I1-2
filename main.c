@@ -129,18 +129,18 @@ void affichage(cases p[121], pions j[60]){
             }
         }
         if(l==4||l==14){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<6;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe);
             printf("\n");
-            compt+=3;
+            compt+=4;
         }
         if(l==5||l==13){
-            for(espace=0;espace<7;espace++){
+            for(espace=0;espace<5;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe,p[compt+12].equipe);
             printf("\n");
             compt+=3;
         }
@@ -148,7 +148,7 @@ void affichage(cases p[121], pions j[60]){
             for(espace=0;espace<7;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%i|%i|%i|%i|%i",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
             printf("\n");
             compt+=3;
         }
