@@ -121,33 +121,30 @@ void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de coul
         HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
-void testcolor(pions j[60],int i,int retour){
+void testcolor(cases p[122],int i,int retour){
     //char retour;
     int couleur;
-    if(j[i].equipe==1){
+    if(retour==1){
         couleur=12;
     }
-    if(j[i].equipe==2){
+    if(retour==2){
         couleur=11;
     }
-    if (j[i].equipe==3)
+    if (retour==3)
     {
         couleur=10;
     }
-    if (j[i].equipe==4)
+    if (retour==4)
     {
         couleur=14;
     }
-    if (j[i].equipe==5)
+    if (retour==5)
     {
         couleur=1;
     }
-    if (j[i].equipe==6)
+    if (retour==6)
     {
         couleur=15;
-    }
-    else{
-        couleur=5;
     }
     Color(couleur,0);
     printf("%i",retour); 
@@ -164,7 +161,7 @@ void affichage(cases p[122], pions j[60]){
             }
             if(l==1){
                 printf("/ ");
-                testcolor(j,compt,p[compt].equipe);
+                testcolor(p,compt,p[compt].equipe);
                 printf(" \\");
                 printf("\n");
             }
