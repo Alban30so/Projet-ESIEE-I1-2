@@ -32,79 +32,87 @@ void reset(cases p[122], pions j[61]){
 }
 void saisiecases(cases p[122], pions j[61], int nbj){
     //cette fonciton saisie par défaut les cases pour un début de partie.
-    int i,t1,t2,t3,t4;
-    if(nbj==2){
-        t1=2;
-    }
-    else if(nbj==4){
-        t1=4;
-        t2=3;
-    }
-    else if(nbj==6){
-        t1=6;
-        t2=5;
-    }
-    //saisie des numéros de cases automatiquement.
+    int i;
     for(i=1;i<122;i++){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
-    for(i=0;i<122;i++){
-        //Deux joueurs ou plus : Equipe Bleu et Jaune
-        if(p[i].nbcase<=10&&p[i].nbcase>=0){
-            p[i].equipe=1;//Equipe Bleu
-        }
-        //Equipe jaune
-        if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=t1;
-        }
-        if(nbj>=4){
-            if(nbj==6){
-                //Equipe blanche
-                if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-                    p[i].equipe=3;
-                }
-                else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-                    p[i].equipe=3;
-                }
-                else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-                    p[i].equipe=3;
-                }
-                //Equipe noire
-                if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-                    p[i].equipe=4;
-                }
-                else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-                    p[i].equipe=4;
-                }
-                else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-                    p[i].equipe=4;
+    attpion(p,j,nbj);
+}
+void saisiedefaut(cases p[122],pions j[61],int nbj){
+    int i,z;
+    for(i=1;i<122;i++){
+        for(z=1;z<61;z++){
+            //Equipe Bleu
+            if(j[z].equipe==1){
+                if(i<=10&&i>=1){
+                    j[z].pcase=i;
+                    p[i].occupation=1;
                 }
             }
             //Equipe rouge
-            if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-                p[i].equipe=2;
+            if(j[z].equipe==2){
+                if(i==47||i==36||i==37){
+                    j[z].pcase=i;
+                }
+                else if(i<=14&&i>=11){
+                    j[z].pcase=i;
+                }
+                else if(i<=26&&i>=24){
+                    j[z].pcase=i;
+                }
+                p[i].occupation=1;
             }
-            else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-                p[i].equipe=2;
+            //Equipe blanche
+            if(j[z].equipe==3){
+                if(i==56||i==45||i==46){
+                    j[z].pcase=i;
+                }
+                else if(i<=35&&i>=33){
+                    j[z].pcase=i;
+                }
+                else if(i<=23&&i>=20){
+                    j[z].pcase=i;
+                }
+                p[i].occupation=1;
             }
-            else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-                p[i].equipe=2;
+            //Equipe noire
+            if(j[z].equipe==4){
+                if(i==66||i==76||i==77){
+                    j[z].pcase=i;
+                }
+                else if(i<=89&&i>=87){
+                    j[z].pcase=i;
+                }
+                else if(i<=102&&i>=99){
+                    j[z].pcase=i;
+                }
+                p[i].occupation=1;
             }
-            //Equipe verte
-            if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-                p[i].equipe=t2;
+            //Equipe Verte
+            if(j[z].equipe==5){
+                if(i==75||i==85||i==86){
+                    j[z].pcase=i;
+                }
+                else if(i<=98&&i>=96){
+                    j[z].pcase=i;
+                }
+                else if(i<=11&&i>=108){
+                    j[z].pcase=i;
+                }
+                p[i].occupation=1;
             }
-            else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-                p[i].equipe=t2;
-            }
-            else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-                p[i].equipe=t2;
+            //Equipe jaune
+            if(j[z].equipe==6){
+                if(i<=120&&i>=112){
+                    j[z].pcase=i;
+                }
+                p[i].occupation=1;
             }
         }
-        attpion(p,j,nbj);
     }
 }
+
 void attpion(cases p[122], pions j[61], int nbj){
     int equ=1,i,temp=0;
     char nom[10];
@@ -122,6 +130,7 @@ void attpion(cases p[122], pions j[61], int nbj){
     if(nbj==6){
         for(i=1;i<61;i++){
             j[i].equipe=equ;
+            j[i].nom=nom[temp];
             temp+=1;
             if(temp==10){
                 equ+=1;
@@ -142,6 +151,7 @@ void attpion(cases p[122], pions j[61], int nbj){
         for(i=51;i<61;i++){
             j[i].equipe=4;
         }
+
     }
     if(nbj==2){
         for(i=1;i<11;i++){
@@ -151,49 +161,7 @@ void attpion(cases p[122], pions j[61], int nbj){
             j[i].equipe=2;
         }
     }
-    for(equ=0;equ<nbj+1;equ++){
-        for(i=1;i<122;i++){
-            if(p[i].equipe==1){
-                if(c1<=9){
-                    p[i].aff=nom[c1];
-                    c1+=1;
-                }
-            }
-            if(p[i].equipe==2){
-                if(c2<=9){
-                    p[i].aff=nom[c2];
-                    c2+=1;
-                }
-            }
-            if(p[i].equipe==3){
-                if(c3<=9){
-                    p[i].aff=nom[c3];
-                    c3+=1;
-                }
-            }
-            if(p[i].equipe==4){
-                if(c4<=9){
-                    p[i].aff=nom[c4];
-                    c4+=1;
-                }
-            }
-            if(p[i].equipe==5){
-                if(c5<=9){
-                    p[i].aff=nom[c5];
-                    c5+=1;
-                }
-            }
-            if(p[i].equipe==6){
-                if(c6<=9){
-                    p[i].aff=nom[c6];
-                    c6+=1;
-                }
-            }
-            if(p[i].equipe==0){
-                p[i].aff='.';
-            }
-        }
-    }
+    
 }
 void test(cases p[122],pions j[61]){
     int i;
@@ -205,10 +173,26 @@ void test(cases p[122],pions j[61]){
         printf("Numero de pion : %i  || Numero de case : %i  || equipe : %i  || nom : %c\n",j[i].nbpion,j[i].pcase,j[i].equipe,j[i].nom);
     }
 }
+void pionsgrille(cases p[122],pions j[61]){
+    //Fonction permettant le remplacement de l'affichage des cases
+    int i,z;
+    for(i=0;i<122;i++){
+        for(z=1;z<61;z++){
+            if(p[i].nbcase==j[z].pcase){
+                p[i].aff=j[z].nom;
+            }
+            if(p[i].occupation==0){
+                p[i].aff='.';
+            }
+        }
+    }
+}
+
 void affichage(cases p[122], pions j[61]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
+    pionsgrille(p,j);
     for(l=0;l<18;l++){
         if(l==1||l==17){
             for(espace=0;espace<9;espace++){
@@ -380,6 +364,7 @@ int main(){
     reset(plateau,joueurs);
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
+    saisiedefaut(plateau,joueurs,nbj);
     test(plateau,joueurs);
-    //affichage(plateau,joueurs);
+    affichage(plateau,joueurs);
 }
