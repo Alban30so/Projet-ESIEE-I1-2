@@ -5,13 +5,14 @@ typedef struct cases
     int nbcase;//Numéro de la case
     int equipe;//Equipe de la case, 0 si neutre
     int occupation;// Ocupation de la case 0/1
-    int aff;//Affichage du pion "  " si vide
+    char aff;//Affichage du pion "  " si vide
 }cases;
 typedef struct pions
 {
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
 }pions;
+void attpion(cases p[122], pions j[60], int nbj);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122]){
     int i;
@@ -23,8 +24,8 @@ void reset(cases p[122]){
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
-void saisiecases(cases p[122],int nbj){
-    //cette fonciton saisie par défaut les cases pour un début de parti.
+void saisiecases(cases p[122], pions j[60], int nbj){
+    //cette fonciton saisie par défaut les cases pour un début de partie.
     int i,t1,t2,t3,t4;
     if(nbj==2){
         t1=2;
@@ -95,35 +96,83 @@ void saisiecases(cases p[122],int nbj){
                 p[i].equipe=t2;
             }
         }
+        attpion(p,j,nbj);
+    }
+}
+void attpion(cases p[122], pions j[60], int nbj){
+    int equ,i,af=1;
+    char nom[10];
+    nom[0]='1';
+    nom[1]='2';
+    nom[2]='3';
+    nom[3]='4';
+    nom[4]='5';
+    nom[5]='6';
+    nom[6]='7';
+    nom[7]='8';
+    nom[8]='9';
+    nom[9]='0';
+    int c1=0,c2=0,c3=0,c4=0,c5=0,c6=0;
+    for(equ=0;equ<nbj+1;equ++){
+        for(i=0;i<122;i++){
+            if(p[i].equipe==1){
+                if(c1<=9){
+                    p[i].aff=nom[c1];
+                    c1+=1;
+                }
+            }
+            if(p[i].equipe==2){
+                if(c2<=9){
+                    p[i].aff=nom[c2];
+                    c2+=1;
+                }
+            }
+            if(p[i].equipe==3){
+                if(c1<=9){
+                    p[i].aff=nom[c3];
+                    c3+=1;
+                }
+            }
+            if(p[i].equipe==4){
+                if(c4<=9){
+                    p[i].aff=nom[c4];
+                    c4+=1;
+                }
+            }
+            if(p[i].equipe==5){
+                if(c5<=9){
+                    p[i].aff=nom[c5];
+                    c5+=1;
+                }
+            }
+            if(p[i].equipe==6){
+                if(c6<=9){
+                    p[i].aff=nom[c6];
+                    c6+=1;
+                }
+            }
+            if(p[i].equipe==0){
+                p[i].aff='.';
+            }
+        }
     }
 }
 void test(cases p[122]){
     int i;
     for(i=0;i<121;i++){
-        printf("Numero de case : %i   || equipe : %i\n",p[i].nbcase,p[i].equipe);
+        printf("Numero de case : %i   || equipe : %i  || affichage : %c\n",p[i].nbcase,p[i].equipe,p[i].aff);
     }
 }
-//La variable aff des cases est changé en fonction de si elle est remplie ou pas
-//Si oui alors il sera affiché "  " sinon il sera affiché le numéro de l'équipe.
-int prescases(cases p[122],pions j[60],int i){
-    int temp;
-    if(p[i].occupation==0){
-        temp=j[i].equipe;
-    }
-    else{
-        temp=0;
-    }
-    return temp;
-}
-void affichage(cases p[122], pions j[60]){
-    int l,compt=1;//variable représentant la ligne d'affichage
+
+/*void affichage(cases p[122], pions j[60]){
+    int l,compt=0;//variable représentant la ligne d'affichage
     int espace;
     for(l=0;l<18;l++){
         if(l==1||l==17){
             for(espace=0;espace<9;espace++){
                 printf("  ");
             }
-            printf("|%i|",p[compt].equipe);
+            printf("|%c|",p[compt].aff);
             printf("\n");
             compt+=1;
         }
@@ -131,7 +180,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<8;espace++){
                 printf("  ");
             }
-            printf(" |%i|%i|",p[compt].equipe,p[compt+1].equipe);
+            printf(" |%c|%c|",p[compt].aff,p[compt+1].aff);
             printf("\n");
             compt+=2;
         }
@@ -139,7 +188,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<7;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+            printf("  |%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff);
             printf("\n");
             compt+=3;
         }
@@ -147,7 +196,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<7;espace++){
                 printf("  ");
             }
-            printf(" |%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe);
+            printf(" |%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff);
             printf("\n");
             compt+=4;
         }
@@ -155,7 +204,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<2;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe,p[compt+12].equipe);
+            printf("  |%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff,p[compt+12].aff);
             printf("\n");
             compt+=13;
         }
@@ -163,7 +212,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<3;espace++){
                 printf("  ");
             }
-            printf(" |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe,p[compt+11].equipe);
+            printf(" |%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff);
             printf("\n");
             compt+=12;
         }
@@ -171,7 +220,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf("|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe,p[compt+10].equipe);
+            printf("|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff);
             printf("\n");
             compt+=11;
         }
@@ -179,7 +228,7 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf(" |%i|%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe,p[compt+9].equipe);
+            printf(" |%c|%c|%c|%c|%c|%c|%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff);
             printf("\n");
             compt+=10;
         }
@@ -187,11 +236,142 @@ void affichage(cases p[122], pions j[60]){
             for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf("  |%i|%i|%i|%i|%i|%i|%i|%i|%i|",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe,p[compt+3].equipe,p[compt+4].equipe,p[compt+5].equipe,p[compt+6].equipe,p[compt+7].equipe,p[compt+8].equipe);
+            printf("  |%c|%c|%c|%c|%c|%c|%c|%c|%c|",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff);
             printf("\n");
             compt+=9;
         }
     }
+}
+*/
+void affichage(cases p[122], pions j[60]){
+    int l,compt=1;//variable représentant la ligne d'affichage
+    int espace;
+    printf("                   ---\n");
+    for(l=0;l<18;l++){
+        if(l==1||l==17){
+            for(espace=0;espace<9;espace++){
+                printf("  ");
+            }
+            if(l==1){
+                printf("/ %i \\",p[compt].aff);
+                printf("\n");
+            }
+            else{
+                printf("\\ %c /",p[compt].aff);
+                printf("\n");
+            }
+            compt+=1;
+        }
+        if(l==2||l==16){
+            for(espace=0;espace<8;espace++){
+                printf("  ");
+            }
+            if(l==2){
+                printf(" / %c %c \\",p[compt].aff,p[compt+1].aff);
+                printf("\n");
+            }
+            else{
+                printf(" \\ %c %c /",p[compt].aff,p[compt+1].aff);
+                printf("\n");
+            }
+            compt+=2;
+        }
+        if(l==3||l==15){
+            for(espace=0;espace<7;espace++){
+                printf("  ");
+            }
+            if(l==3){
+                printf("  / %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff);
+                printf("\n");
+            }
+            else{
+                printf("  \\ %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff);
+                printf("\n");
+            }
+
+            compt+=3;
+        }    
+        if(l==4||l==14){
+            for(espace=0;espace<3;espace++){
+                printf("  ");
+            }
+            printf("---------");
+            if(l==4){
+                printf("/ %c %c %c %c \\---------",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff);
+                printf("\n");
+            }
+            else{ 
+                printf("\\ %c %c %c %c /---------",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff);
+                printf("\n");
+            }
+            compt+=4;
+        }
+        if(l==5||l==13){
+            for(espace=0;espace<2;espace++){
+                printf("  ");
+            }
+            if(l==5){
+                printf("  \\ %c %c %c %c %c %c %c %c %c %c %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff,p[compt+12].aff);
+                printf("\n");
+            }
+            else{
+                printf("  / %c %c %c %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff,p[compt+12].aff);
+                printf("\n");
+            }
+            compt+=13;
+        }
+        if(l==6||l==12){
+            for(espace=0;espace<3;espace++){
+                printf("  ");
+            }
+            if(l==6){
+                printf(" \\ %c %c %c %c %c %c %c %c %c %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff);
+                printf("\n");
+            }
+            else{
+                printf(" / %c %c %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff,p[compt+11].aff);
+                printf("\n");
+            }
+            compt+=12;
+        }
+        if(l==7||l==11){
+            for(espace=0;espace<4;espace++){
+                printf("  ");
+            }
+            if(l==7){
+                printf("\\ %c %c %c %c %c %c %c %c %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff);
+                printf("\n");
+            }
+            else{
+                printf("/ %c %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff);
+                printf("\n");
+            }
+            compt+=11;
+        }
+        if(l==8||l==10){
+            for(espace=0;espace<4;espace++){
+                printf("  ");
+            }
+            if(l==8){
+                printf(" \\ %c %c %c %c %c %c %c %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff);
+                printf("\n");
+            }
+            else{
+                 printf(" / %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff);
+                printf("\n");
+            }
+            compt+=10;
+        }
+        if(l==9){
+            for(espace=0;espace<4;espace++){
+                printf("  ");
+            }
+            printf("  | %c %c %c %c %c %c %c %c %c |",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff);
+            printf("\n");
+            compt+=9;
+        }
+    }
+    printf("                   ---\n");
 }
 int menu(){
     int nbj;
@@ -220,14 +400,25 @@ int menu(){
         break;
     }
 }
+void Jeu(cases p[122], pions j[60]){
+    affichage(p,j);
+    int run=1,tour=1,temp;
+    char rep;
+    while(run==1){
+        printf("Au tour de l'equipe %i !\n",tour);
+        do{
+            printf("Veuillez Entrer la case :\n");
+            scanf("%c",rep);
+        }while(p[temp].equipe!=tour);
 
+    }
+}
 int main(){
     cases plateau[122];
     pions joueurs[60];
     reset(plateau);
     int nbj=menu();
-    saisiecases(plateau,nbj);
+    saisiecases(plateau,joueurs,nbj);
     test(plateau);
     affichage(plateau,joueurs);
-    printf("A vous de jouer !\n");
 }
