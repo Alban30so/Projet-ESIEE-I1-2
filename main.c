@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 //Ce code est celui du jeu en affichage console.
 typedef struct cases
 {
@@ -45,7 +46,7 @@ void saisiecases(cases p[122],int nbj){
     for(i=0;i<122;i++){
         //Deux joueurs ou plus : Equipe Bleu et Jaune
         if(p[i].nbcase<=10&&p[i].nbcase>=0){
-            p[i].equipe=1;//Equipe Bleu
+            p[i].equipe=1;//Equipe rougeu
         }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
@@ -115,6 +116,43 @@ int prescases(cases p[122],pions j[60],int i){
     }
     return temp; 
 }
+void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
+{
+        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
+void testcolor(pions j[60],int i,int retour){
+    //char retour;
+    int couleur;
+    if(j[i].equipe==1){
+        couleur=12;
+    }
+    if(j[i].equipe==2){
+        couleur=11;
+    }
+    if (j[i].equipe==3)
+    {
+        couleur=10;
+    }
+    if (j[i].equipe==4)
+    {
+        couleur=14;
+    }
+    if (j[i].equipe==5)
+    {
+        couleur=1;
+    }
+    if (j[i].equipe==6)
+    {
+        couleur=15;
+    }
+    else{
+        couleur=5;
+    }
+    Color(couleur,0);
+    printf("%i",retour); 
+    Color(15,0);
+}
 void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
@@ -125,7 +163,9 @@ void affichage(cases p[122], pions j[60]){
                 printf("  ");
             }
             if(l==1){
-                printf("/ %i \\",p[compt].equipe);
+                printf("/ ");
+                testcolor(j,compt,p[compt].equipe);
+                printf(" \\");
                 printf("\n");
             }
             else{
@@ -153,7 +193,9 @@ void affichage(cases p[122], pions j[60]){
                 printf("  ");
             }
             if(l==3){
+            
                 printf("  / %i %i %i \\",p[compt].equipe,p[compt+1].equipe,p[compt+2].equipe);
+
                 printf("\n");
             }
             else{
@@ -245,6 +287,7 @@ void affichage(cases p[122], pions j[60]){
     }
     printf("                   ---\n");
 }
+
 int menu(){
     int nbj;
     printf("Bienvenue aux dames chinoises ! \n entrez le nombre de joueurs : \n");
@@ -273,6 +316,12 @@ int menu(){
     }
 }
 
+void couleur(){
+   Color(12,3);
+   printf("La ton texte va avoir la couleur 12 comme texte et 3 pour fond");
+   Color(15, 0);
+}
+
 int main(){
     cases plateau[122];
     pions joueurs[60];
@@ -282,4 +331,6 @@ int main(){
     //test(plateau);
     affichage(plateau,joueurs);
     printf("A vous de jouer !\n");
+    couleur();
+    
 }
