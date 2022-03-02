@@ -15,6 +15,7 @@ typedef struct pions
     char nom;//
 }pions;
 void attpion(cases p[122], pions j[61], int nbj);
+void test(cases p[122],pions j[61]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122], pions j[61]){
     int i;
@@ -39,15 +40,82 @@ void saisiecases(cases p[122], pions j[61], int nbj){
     }
     attpion(p,j,nbj);
 }
+void base(cases p[122]){
+    int i;
+    for(i=0;i<122;i++){
+        //Deux joueurs ou plus : Equipe Bleu et Jaune
+        if(p[i].nbcase<=10&&p[i].nbcase>=0){
+            p[i].equipe=1;//Equipe Bleu
+        }
+        //Equipe jaune
+        if(p[i].nbcase>=112&&p[i].nbcase<=121){
+            p[i].equipe=6;
+        }
+        //Equipe blanche
+        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
+            p[i].equipe=3;
+        }
+        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
+            p[i].equipe=3;
+        }
+        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
+            p[i].equipe=3;
+        }
+        //Equipe noire
+        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
+            p[i].equipe=4;
+        }
+        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
+            p[i].equipe=4;
+        }
+        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
+            p[i].equipe=4;
+        }
+        //Equipe rouge
+        if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
+            p[i].equipe=2;
+        }
+        else if(p[i].nbcase<=14&&p[i].nbcase>=11){
+            p[i].equipe=2;
+        }
+        else if(p[i].nbcase<=26&&p[i].nbcase>=24){
+            p[i].equipe=2;
+        }
+        //Equipe verte
+        if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
+            p[i].equipe=5;
+        }
+        else if(p[i].nbcase>=96&&p[i].nbcase<=98){
+            p[i].equipe=5;
+        }
+        else if(p[i].nbcase>=108&&p[i].nbcase<=111){
+            p[i].equipe=5;
+        }
+    }
+}
 void saisiedefaut(cases p[122],pions j[61],int nbj){
-    int i,z;
-    for(i=1;i<122;i++){
-        for(z=1;z<61;z++){
+    base(p);
+    int i,z=1,temp;
+    test(p,j);
+    for(z=1;z<61;z++){
+        printf("Pion n %i\n",z);
+        for(i=1;i<122;i++){
+            if(p[i].equipe==j[z].equipe){
+                j[z].pcase=i;
+            }
+        }
+    }
+}
+    /*
+        for(i=1;i<122;i++){
             //Equipe Bleu
             if(j[z].equipe==1){
-                if(i<=10&&i>=1){
+                if(i<=10){
                     j[z].pcase=i;
                     p[i].occupation=1;
+                    //printf("nbcase : %i\n",j[z].pcase);
+                    temp=1;
+                    printf("Equipe 1 !\n");
                 }
             }
             //Equipe rouge
@@ -55,26 +123,38 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
                 if(i==47||i==36||i==37){
                     j[z].pcase=i;
                 }
-                else if(i<=14&&i>=11){
-                    j[z].pcase=i;
+                if(i<=14){
+                    if(i>=11){
+                        j[z].pcase=i;
+                    }
                 }
-                else if(i<=26&&i>=24){
-                    j[z].pcase=i;
+                if(i<=26){
+                    if(i>=24){
+                        j[z].pcase=i;
+                    }
                 }
                 p[i].occupation=1;
+                temp=1;
+                printf("Equipe 2 !\n");
             }
             //Equipe blanche
             if(j[z].equipe==3){
                 if(i==56||i==45||i==46){
                     j[z].pcase=i;
                 }
-                else if(i<=35&&i>=33){
-                    j[z].pcase=i;
+                if(i<=35){
+                    if(i>=33){
+                        j[z].pcase=i;
+                    }
                 }
-                else if(i<=23&&i>=20){
-                    j[z].pcase=i;
+                else if(i<=23){
+                    if(i>=20){
+                        j[z].pcase=i;
+                    }
                 }
                 p[i].occupation=1;
+                temp=1;
+                printf("Equipe 3 !\n");
             }
             //Equipe noire
             if(j[z].equipe==4){
@@ -88,6 +168,8 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
                     j[z].pcase=i;
                 }
                 p[i].occupation=1;
+                temp=1;
+                printf("Equipe 4 !\n");
             }
             //Equipe Verte
             if(j[z].equipe==5){
@@ -101,6 +183,8 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
                     j[z].pcase=i;
                 }
                 p[i].occupation=1;
+                temp=1;
+                printf("Equipe 5 !\n");
             }
             //Equipe jaune
             if(j[z].equipe==6){
@@ -108,10 +192,16 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
                     j[z].pcase=i;
                 }
                 p[i].occupation=1;
+                temp=1;
+                printf("Equipe 6 !\n");
             }
+            if(temp==1){
+                printf("Ajout +1 , case %i\n",i);
+                z+=1;
+            }
+            temp=0;       
         }
-    }
-}
+        */
 
 void attpion(cases p[122], pions j[61], int nbj){
     int equ=1,i,temp=0;
@@ -176,16 +266,17 @@ void test(cases p[122],pions j[61]){
 void pionsgrille(cases p[122],pions j[61]){
     //Fonction permettant le remplacement de l'affichage des cases
     int i,z;
-    for(i=0;i<122;i++){
-        for(z=1;z<61;z++){
+    for(z=1;z<61;z++){
+        for(i=0;i<122;i++){
             if(p[i].nbcase==j[z].pcase){
                 p[i].aff=j[z].nom;
+                printf("J'affiche sur la case %i pion n%i\n",j[z].nbpion);
             }
-            if(p[i].occupation==0){
+            else{
                 p[i].aff='.';
             }
         }
-    }
+    }   
 }
 
 void affichage(cases p[122], pions j[61]){
@@ -365,6 +456,6 @@ int main(){
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     saisiedefaut(plateau,joueurs,nbj);
-    test(plateau,joueurs);
     affichage(plateau,joueurs);
+    //test(plateau,joueurs);
 }
