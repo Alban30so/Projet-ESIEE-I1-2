@@ -15,7 +15,6 @@ typedef struct pions
     char nom;//
 }pions;
 void attpion(cases p[122], pions j[61], int nbj);
-void test(cases p[122],pions j[61]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122], pions j[61]){
     int i;
@@ -28,6 +27,7 @@ void reset(cases p[122], pions j[61]){
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
+    }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
 void saisiecases(cases p[122], pions j[61], int nbj){
@@ -155,7 +155,6 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
     j[59].pcase=120;
     j[60].pcase=121;
 }
-
 void attpion(cases p[122], pions j[61], int nbj){
     int equ=1,i,temp=0;
     char nom[10];
@@ -214,7 +213,7 @@ void attpion(cases p[122], pions j[61], int nbj){
         }
     }
 }
-void test(cases p[122]){
+void test(cases p[122], pions j[61]){
     int i;
     printf("Affichage liste joueurs\n");
     for(i=0;i<61;i++){
@@ -414,6 +413,7 @@ int main(){
     reset(plateau,joueurs);
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
-    test(plateau);
+    saisiedefaut(plateau,joueurs,6);
+    test(plateau,joueurs);
     affichage(plateau,joueurs);
 }
