@@ -20,7 +20,15 @@ void reset(cases p[122]){
         p[i].nbcase=0;
         p[i].equipe=0;
         p[i].occupation=0;
+<<<<<<< Updated upstream
         p[i].aff=0;
+=======
+        p[i].aff='.';
+        j[i].nbpion=i;
+        j[i].equipe=0;
+        j[i].nom='0';
+        j[i].pcase=0;
+>>>>>>> Stashed changes
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
@@ -50,6 +58,7 @@ void saisiecases(cases p[122], pions j[60], int nbj){
         }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
+<<<<<<< Updated upstream
             p[i].equipe=t1;
         }
         if(nbj>=4){
@@ -101,6 +110,118 @@ void saisiecases(cases p[122], pions j[60], int nbj){
 }
 void attpion(cases p[122], pions j[60], int nbj){
     int equ,i;
+=======
+            p[i].equipe=6;
+        }
+        //Equipe blanche
+        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
+            p[i].equipe=3;
+        }
+        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
+            p[i].equipe=3;
+        }
+        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
+            p[i].equipe=3;
+        }
+        //Equipe noire
+        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
+            p[i].equipe=4;
+        }
+        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
+            p[i].equipe=4;
+        }
+        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
+            p[i].equipe=4;
+        }
+        //Equipe rouge
+        if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
+            p[i].equipe=2;
+        }
+        else if(p[i].nbcase<=14&&p[i].nbcase>=11){
+            p[i].equipe=2;
+        }
+        else if(p[i].nbcase<=26&&p[i].nbcase>=24){
+            p[i].equipe=2;
+        }
+        //Equipe verte
+        if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
+            p[i].equipe=5;
+        }
+        else if(p[i].nbcase>=96&&p[i].nbcase<=98){
+            p[i].equipe=5;
+        }
+        else if(p[i].nbcase>=108&&p[i].nbcase<=111){
+            p[i].equipe=5;
+        }
+    }
+}
+void saisiedefaut(cases p[122],pions j[61],int nbj){
+    base(p);
+    j[1].pcase=1;
+    j[2].pcase=2;
+    j[3].pcase=3;
+    j[4].pcase=4;
+    j[5].pcase=5;
+    j[6].pcase=6;
+    j[7].pcase=7;
+    j[8].pcase=8;
+    j[9].pcase=9;
+    j[10].pcase=10;
+    j[11].pcase=11;
+    j[12].pcase=12;
+    j[13].pcase=13;
+    j[14].pcase=14;
+    j[15].pcase=24;
+    j[16].pcase=25;
+    j[17].pcase=26;
+    j[18].pcase=36;
+    j[19].pcase=37;
+    j[20].pcase=47;
+    j[21].pcase=20;
+    j[22].pcase=21;
+    j[23].pcase=22;
+    j[24].pcase=23;
+    j[25].pcase=33;
+    j[26].pcase=34;
+    j[27].pcase=35;
+    j[28].pcase=45;
+    j[29].pcase=46;
+    j[30].pcase=56;
+    j[31].pcase=66;
+    j[32].pcase=76;
+    j[33].pcase=77;
+    j[34].pcase=87;
+    j[35].pcase=88;
+    j[36].pcase=88;
+    j[37].pcase=89;
+    j[38].pcase=99;
+    j[39].pcase=100;
+    j[40].pcase=101;
+    j[41].pcase=102;
+    j[42].pcase=75;
+    j[43].pcase=85;
+    j[44].pcase=86;
+    j[45].pcase=96;
+    j[46].pcase=97;
+    j[47].pcase=98;
+    j[48].pcase=108;
+    j[49].pcase=109;
+    j[50].pcase=110;
+    j[51].pcase=111;
+    j[52].pcase=112;
+    j[53].pcase=114;
+    j[54].pcase=115;
+    j[55].pcase=116;
+    j[56].pcase=117;
+    j[57].pcase=118;
+    j[58].pcase=119;
+    j[59].pcase=120;
+    j[60].pcase=121;
+}
+
+void attpion(cases p[122], pions j[61], int nbj){
+    int equ=1,i,temp=0;
+>>>>>>> Stashed changes
     char nom[10];
     nom[0]='1';
     nom[1]='2';
@@ -159,11 +280,39 @@ void attpion(cases p[122], pions j[60], int nbj){
 }
 void test(cases p[122]){
     int i;
+    /*
     for(i=0;i<121;i++){
         printf("Numero de case : %i   || equipe : %i  || affichage : %c\n",p[i].nbcase,p[i].equipe,p[i].aff);
     }
+<<<<<<< Updated upstream
 }
 void affichage(cases p[122], pions j[60]){
+=======
+    */
+    printf("Affichage liste joueurs\n");
+    for(i=0;i<61;i++){
+        printf("Numero de pion : %i  || Numero de case : %i  || equipe : %i  || nom : %c\n",j[i].nbpion,j[i].pcase,j[i].equipe,j[i].nom);
+    }
+}
+void pionsgrille(cases p[122],pions j[61]){
+    //Fonction permettant le remplacement de l'affichage des cases
+    int i,z,temp=0;
+    for(i=1;i<121;i++){
+        temp=0;
+        for(z=1;z<61;z++){
+            if(j[z].pcase==p[i].nbcase){
+                p[i].aff=j[z].nom;
+                temp=1;
+            }
+            if(temp!=1&&j[z].pcase!=p[i].nbcase){
+                p[i].aff='.';
+            }
+        }
+    }
+}
+
+void affichage(cases p[122], pions j[61]){
+>>>>>>> Stashed changes
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
@@ -341,4 +490,8 @@ int main(){
     saisiecases(plateau,joueurs,nbj);
     test(plateau);
     affichage(plateau,joueurs);
+<<<<<<< Updated upstream
+=======
+    test(plateau,joueurs);
+>>>>>>> Stashed changes
 }
