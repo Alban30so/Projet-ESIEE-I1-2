@@ -14,7 +14,7 @@ typedef struct pions
     int equipe;//equipe de ce pion
     char nom;//
 }pions;
-void attpion(cases p[122], pions j[61], int nbj);
+void attpion(cases p[122], pions j[61]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122], pions j[61]){
     int i;
@@ -37,7 +37,7 @@ void saisiecases(cases p[122], pions j[61], int nbj){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
-    attpion(p,j,nbj);
+    attpion(p,j);
 }
 void base(cases p[122]){
     int i;
@@ -155,7 +155,7 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
     j[59].pcase=120;
     j[60].pcase=121;
 }
-void attpion(cases p[122], pions j[61], int nbj){
+void attpion(cases p[122], pions j[61]){
     int equ=1,i,temp=0;
     char nom[10];
     nom[0]='1';
@@ -169,46 +169,44 @@ void attpion(cases p[122], pions j[61], int nbj){
     nom[8]='9';
     nom[9]='0';
     int c1=0,c2=0,c3=0,c4=0,c5=0,c6=0;
-    for(equ=0;equ<nbj+1;equ++){
-        for(i=1;i<122;i++){
-            if(p[i].equipe==1){
-                if(c1<=9){
-                    p[i].aff=nom[c1];
-                    c1+=1;
-                }
+    for(equ=1;equ<7;equ++){
+        for(i=1;i<61;i++){
+            temp=0;
+            if(c1<=9&&temp==0){
+                j[i].equipe=1;
+                j[i].nom=nom[c1];
+                c1+=1;
+                temp=2;
             }
-            if(p[i].equipe==2){
-                if(c2<=9){
-                    p[i].aff=nom[c2];
-                    c2+=1;
-                }
+            if(c2<=9&&temp==0){
+                j[i].equipe=2;
+                j[i].nom=nom[c2];
+                c2+=1;
+                temp=2;
             }
-            if(p[i].equipe==3){
-                if(c3<=9){
-                    p[i].aff=nom[c3];
-                    c3+=1;
-                }
+            if(c3<=9&&temp==0){
+                j[i].equipe=3;
+                j[i].nom=nom[c3];
+                c3+=1;
+                temp=2;
             }
-            if(p[i].equipe==4){
-                if(c4<=9){
-                    p[i].aff=nom[c4];
-                    c4+=1;
-                }
+            if(c4<=9&&temp==0){
+                j[i].equipe=4;
+                j[i].nom=nom[c4];
+                c4+=1;
+                temp=2;
             }
-            if(p[i].equipe==5){
-                if(c5<=9){
-                    p[i].aff=nom[c5];
-                    c5+=1;
-                }
+            if(c5<=9&&temp==0){
+                j[i].equipe=5;
+                j[i].nom=nom[c5];
+                c5+=1;
+                temp=2;
             }
-            if(p[i].equipe==6){
-                if(c6<=9){
-                    p[i].aff=nom[c6];
-                    c6+=1;
-                }
-            }
-            if(p[i].equipe==0){
-                p[i].aff='.';
+            if(c6<=9&&temp==0){
+                j[i].equipe=6;
+                j[i].nom=nom[c6];
+                c6+=1;
+                temp=2;
             }
         }
     }
@@ -222,16 +220,15 @@ void test(cases p[122], pions j[61]){
 }
 void pionsgrille(cases p[122],pions j[61]){
     //Fonction permettant le remplacement de l'affichage des cases
-    int i,z,temp=0;
+    int i,z,temp=0,c=0;
     for(i=1;i<121;i++){
         temp=0;
         for(z=1;z<61;z++){
             if(j[z].pcase==p[i].nbcase){
+                printf("Affichage case %i : %c",i,p[i].aff);
                 p[i].aff=j[z].nom;
+                printf("  Qui se transforme en %c\n",p[i].aff);
                 temp=1;
-            }
-            if(temp!=1&&j[z].pcase!=p[i].nbcase){
-                p[i].aff='.';
             }
         }
     }
@@ -240,6 +237,7 @@ void pionsgrille(cases p[122],pions j[61]){
 void affichage(cases p[122], pions j[61]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
+    pionsgrille(p,j);
     printf("                   ---\n");
     for(l=0;l<18;l++){
         if(l==1||l==17){
@@ -411,6 +409,10 @@ int main(){
     cases plateau[122];
     pions joueurs[61];
     reset(plateau,joueurs);
+    int i;
+    for(i=0;i<122;i++){
+        plateau[i].aff='.';
+    }
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     saisiedefaut(plateau,joueurs,6);
