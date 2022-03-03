@@ -188,6 +188,44 @@ void testcolor(pions j[60],int i,int retour){
     printf("%c ",retour); 
     Color(15,0);
 }
+<<<<<<< Updated upstream
+=======
+
+void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
+{
+        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
+void testcolor(pions j[60],int i,int retour){
+    //char retour;
+    int couleur;
+    if( j[i].equipe==1){
+        couleur=12;
+    }
+    if( j[i].equipe==2){
+        couleur=11;
+    }
+    if (j[i].equipe==3)
+    {
+        couleur=13;
+    }
+    if (j[i].equipe==4)
+    {
+        couleur=14;
+    }
+    if (j[i].equipe==5)
+    {
+        couleur=1;
+    }
+    if (j[i].equipe==6)
+    {
+        couleur=10;
+    }
+    Color(couleur,0);
+    printf("%c ",retour); 
+    Color(15,0);
+}
+>>>>>>> Stashed changes
 void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
