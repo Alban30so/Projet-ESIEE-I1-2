@@ -9,48 +9,38 @@ typedef struct cases
 }cases;
 typedef struct pions
 {
+    int nbpion;//numéro du pion
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
+    char nom;//
 }pions;
-void attpion(cases p[122], pions j[60], int nbj);
+void attpion(cases p[122], pions j[61], int nbj);
+void test(cases p[122],pions j[61]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
-void reset(cases p[122]){
+void reset(cases p[122], pions j[61]){
     int i;
     for(i=0;i<122;i++){
         p[i].nbcase=0;
         p[i].equipe=0;
         p[i].occupation=0;
-<<<<<<< Updated upstream
-        p[i].aff=0;
-=======
         p[i].aff='.';
         j[i].nbpion=i;
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
->>>>>>> Stashed changes
-    }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
-void saisiecases(cases p[122], pions j[60], int nbj){
+void saisiecases(cases p[122], pions j[61], int nbj){
     //cette fonciton saisie par défaut les cases pour un début de partie.
-    int i,t1,t2,t3,t4;
-    if(nbj==2){
-        t1=2;
-    }
-    else if(nbj==4){
-        t1=4;
-        t2=3;
-    }
-    else if(nbj==6){
-        t1=6;
-        t2=5;
-    }
-    //saisie des numéros de cases automatiquement.
+    int i;
     for(i=1;i<122;i++){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
+    attpion(p,j,nbj);
+}
+void base(cases p[122]){
+    int i;
     for(i=0;i<122;i++){
         //Deux joueurs ou plus : Equipe Bleu et Jaune
         if(p[i].nbcase<=10&&p[i].nbcase>=0){
@@ -58,59 +48,6 @@ void saisiecases(cases p[122], pions j[60], int nbj){
         }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
-<<<<<<< Updated upstream
-            p[i].equipe=t1;
-        }
-        if(nbj>=4){
-            if(nbj==6){
-                //Equipe blanche
-                if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-                    p[i].equipe=3;
-                }
-                else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-                    p[i].equipe=3;
-                }
-                else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-                    p[i].equipe=3;
-                }
-                //Equipe noire
-                if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-                    p[i].equipe=4;
-                }
-                else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-                    p[i].equipe=4;
-                }
-                else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-                    p[i].equipe=4;
-                }
-            }
-            //Equipe rouge
-            if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-                p[i].equipe=2;
-            }
-            else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-                p[i].equipe=2;
-            }
-            else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-                p[i].equipe=2;
-            }
-            //Equipe verte
-            if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-                p[i].equipe=t2;
-            }
-            else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-                p[i].equipe=t2;
-            }
-            else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-                p[i].equipe=t2;
-            }
-        }
-        attpion(p,j,nbj);
-    }
-}
-void attpion(cases p[122], pions j[60], int nbj){
-    int equ,i;
-=======
             p[i].equipe=6;
         }
         //Equipe blanche
@@ -221,7 +158,6 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
 
 void attpion(cases p[122], pions j[61], int nbj){
     int equ=1,i,temp=0;
->>>>>>> Stashed changes
     char nom[10];
     nom[0]='1';
     nom[1]='2';
@@ -280,15 +216,6 @@ void attpion(cases p[122], pions j[61], int nbj){
 }
 void test(cases p[122]){
     int i;
-    /*
-    for(i=0;i<121;i++){
-        printf("Numero de case : %i   || equipe : %i  || affichage : %c\n",p[i].nbcase,p[i].equipe,p[i].aff);
-    }
-<<<<<<< Updated upstream
-}
-void affichage(cases p[122], pions j[60]){
-=======
-    */
     printf("Affichage liste joueurs\n");
     for(i=0;i<61;i++){
         printf("Numero de pion : %i  || Numero de case : %i  || equipe : %i  || nom : %c\n",j[i].nbpion,j[i].pcase,j[i].equipe,j[i].nom);
@@ -312,7 +239,6 @@ void pionsgrille(cases p[122],pions j[61]){
 }
 
 void affichage(cases p[122], pions j[61]){
->>>>>>> Stashed changes
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
@@ -484,14 +410,10 @@ void Jeu(cases p[122], pions j[60]){
 }
 int main(){
     cases plateau[122];
-    pions joueurs[60];
-    reset(plateau);
+    pions joueurs[61];
+    reset(plateau,joueurs);
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     test(plateau);
     affichage(plateau,joueurs);
-<<<<<<< Updated upstream
-=======
-    test(plateau,joueurs);
->>>>>>> Stashed changes
 }
