@@ -273,6 +273,7 @@ void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
+    pionsgrille(p,j);
     for(l=0;l<18;l++){
         if(l==1||l==17){
             for(espace=0;espace<9;espace++){
