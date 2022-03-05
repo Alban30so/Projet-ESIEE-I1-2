@@ -16,6 +16,7 @@ typedef struct pions
     char nom;//
 }pions;
 void attpion(cases p[122], pions j[61]);
+void testcolor(pions j[61],int i,char retour);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122], pions j[61]){
     int i;
@@ -239,7 +240,7 @@ void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de coul
         HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
-void testcolor(pions j[60],int i,int retour){
+void testcolor(pions j[61],int i,char retour){
     //char retour;
     int couleur;
     if( j[i].equipe==1){
@@ -269,7 +270,7 @@ void testcolor(pions j[60],int i,int retour){
     Color(15,0);
 }
 
-void affichage(cases p[122], pions j[60]){
+void affichage(cases p[122], pions j[61]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
