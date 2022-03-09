@@ -225,9 +225,9 @@ void pionsgrille(cases p[122],pions j[61]){
         temp=0;
         for(z=1;z<61;z++){
             if(j[z].pcase==p[i].nbcase){
-                printf("Affichage case %i : %c",i,p[i].aff);
+                //printf("Affichage case %i : %c",i,p[i].aff);
                 p[i].aff=j[z].nom;
-                printf("  Qui se transforme en %c\n",p[i].aff);
+                //printf("  Qui se transforme en %c\n",p[i].aff);
                 temp=1;
             }
         }
@@ -416,6 +416,6 @@ int main(){
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     saisiedefaut(plateau,joueurs,6);
-    test(plateau,joueurs);
+    //test(plateau,joueurs);
     affichage(plateau,joueurs);
 }
