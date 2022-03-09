@@ -226,9 +226,9 @@ cases* pionsgrille(cases p[122],pions j[61]){
         temp=0;
         for(z=1;z<61;z++){
             if(j[z].pcase==p[i].nbcase){
-                printf("Affichage case %i : %c",i,p[i].aff);
+                //printf("Affichage case %i : %c",i,p[i].aff);
                 p[i].aff=j[z].nom;
-                printf("  Qui se transforme en %c\n",p[i].aff);
+                //printf("  Qui se transforme en %c\n",p[i].aff);
                 temp=1;
             }
         }
@@ -593,17 +593,109 @@ int recherchepion(pions j[61],int equipe, char numero){
         }
     }
 }
+void occupation(cases p[122],pions j[61]){
+    int i,k,temp=0;
+    for(i=1;i<122;i++){
+        temp=0;
+        for(k=1;k<61;k++){
+            if(p[i].nbcase==j[k].pcase){
+                p[i].occupation=1;
+                temp=1;
+            }
+            if( temp==0){
+                p[i].occupation=0;
+            }
+        }
+        //printf("la case %i est = %i \n",p[i].nbcase,p[i].occupation);
+    }
+}
+int verifoccupation(cases p[122],int n){
+    int autorisation;
+    if(p[n].occupation==0){
+        autorisation=1;
+    }
+    else{
+        autorisation=0;
+    }
+    return autorisation;
+}
+int dephg(cases p[122],pions j[61],int pion){
+    int erreur;
+    if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
+        erreur=1;
+    }
+    if(j[pion].pcase==3&& p[1].occupation==0){
+        if(verifoccupation(p,1)==1){
+            j[pion].pcase=1;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase==6||j[pion].pcase==5){
+        if(verifoccupation(p,j[pion].pcase-3)==0){
+            j[pion].pcase=j[pion].pcase-3;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    return erreur;
+}
+int dephd(cases p[122],pions j[61],int pion){
+    int erreur;
+    if(j[pion].pcase==1||j[pion].pcase==3||j[pion].pcase==6||j[pion].pcase==10||j[pion].pcase==11||j[pion].pcase==12||j[pion].pcase==13||j[pion].pcase==14||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==19||j[pion].pcase==35||j[pion].pcase==46||j[pion].pcase==56||j[pion].pcase==75||j[pion].pcase==86||j[pion].pcase==98||j[pion].pcase==111){
+        erreur=1;
+    }
+    if(j[pion].pcase==2){
+        if(verifoccupation(p,1)==1){
+            j[pion].pcase=1;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase==4||j[pion].pcase==5){
+        j[pion].pcase=j[pion].pcase-2;
+        erreur=0;
+    }
+    if(j[pion].pcase==7||j[pion].pcase==8||j[pion].pcase==9){
+        j[pion].pcase=j[pion].pcase-3;
+        erreur=0;
+    }
+    if(j[pion].pcase<19&&j[pion].pcase>14){
+        j[pion].pcase=j[pion].pcase-8;
+    }
+    if(j[pion].pcase<=35&&j[pion].pcase>=24){
+        j[pion].pcase=j[pion].pcase-12;
+    }
+    return erreur;
+}
 int deplacement(cases p[122],pions j[61],int dep,int pion){
+    int erreur=0;
     switch (dep)
     {
     case 1://deplacement vers la gauche
-    if(p[j[pion].pcase-1].occupation==0){
-        j[pion].pcase=j[pion].pcase-1;
-    }
+        if(p[j[pion].pcase-1].occupation==0){
+            j[pion].pcase=j[pion].pcase-1;
+            erreur=0;
+        }
+        else{
+            printf("Wait that's illegal\n");
+            erreur=1;
+        }
+        return erreur;
         break;
     case 2 ://deplacement vers la droite
+        if(p[j[pion].pcase+1].occupation==0){
+        j[pion].pcase=j[pion].pcase+1;
+    }
         break;
     case 3 ://deplacement haut gauche
+        dephg(p,j,pion);
         break;
     case 4 ://deplacement haut droite
         break;
@@ -614,22 +706,28 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
     }
 }
 void Jeu(cases p[122], pions j[61]){
+    int erreur;
     affichage(p,j);
-    int run=1,tour=1,temp,dep;
+    occupation(p,j);
+    int run=1,tour=2,temp,dep;
     char rep='0';
     while(run==1){
         printf("Au tour de l'equipe %i !\n",tour);
-        do{
+        //do{
             printf("Veuillez Entrer la case :\n");
+            fflush(stdin);
             scanf("%c",&rep);
-        }while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
+        //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
         temp=recherchepion(j,tour,rep);
         printf("Quel deplacement souhaitez vous faire ?\n");
-        printf("Entrez 1 pour aller vers la droite\nEntrez 2 pour aller vers la gauche\nEntrez 3 pour monter a gauche\nEntrez 4 pour pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
+        printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
-        }while(dep>7);
-        deplacement(p,j,dep,temp);
+            erreur=deplacement(p,j,dep,temp);
+            if(erreur==1){
+                printf("Veuillez entrer un deplacement possible\n");
+            }
+        }while(dep>7||erreur==1);
         affichage(p,j);
     }
 }
@@ -644,13 +742,8 @@ int main(){
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     saisiedefaut(plateau,joueurs,6);
-<<<<<<< Updated upstream
-    test(plateau,joueurs);
-    affichage(plateau,joueurs);
-=======
     //test(plateau,joueurs);
     //affichage(plateau,joueurs);
     Jeu(plateau,joueurs);
     return 0;
->>>>>>> Stashed changes
 }
