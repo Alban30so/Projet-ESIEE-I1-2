@@ -266,7 +266,7 @@ void testcolor(pions j[61],int i, cases p[122]){
         temp=1;
     }
     if(j[z].equipe==4){
-        couleur=7;
+        couleur=11;
         temp=1;
     }
     if(j[z].equipe==5){
@@ -585,17 +585,52 @@ int menu(){
         break;
     }
 }
-void Jeu(cases p[122], pions j[60]){
+int recherchepion(pions j[61],int equipe, char numero){
+    int i;
+    for(i=1;i<61;i++){
+        if(j[i].equipe==equipe && j[i].nom==numero){
+            return i;
+        }
+    }
+}
+int deplacement(cases p[122],pions j[61],int dep,int pion){
+    switch (dep)
+    {
+    case 1://deplacement vers la gauche
+    if(p[j[pion].pcase-1].occupation==0){
+        j[pion].pcase=j[pion].pcase-1;
+    }
+        break;
+    case 2 ://deplacement vers la droite
+        break;
+    case 3 ://deplacement haut gauche
+        break;
+    case 4 ://deplacement haut droite
+        break;
+    case 5 ://deplacement bas gauche
+        break;
+    case 6 ://deplacement bas droite
+        break;
+    }
+}
+void Jeu(cases p[122], pions j[61]){
     affichage(p,j);
-    int run=1,tour=1,temp;
-    char rep;
+    int run=1,tour=1,temp,dep;
+    char rep='0';
     while(run==1){
         printf("Au tour de l'equipe %i !\n",tour);
         do{
             printf("Veuillez Entrer la case :\n");
-            scanf("%c",rep);
-        }while(p[temp].equipe!=tour);
-
+            scanf("%c",&rep);
+        }while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
+        temp=recherchepion(j,tour,rep);
+        printf("Quel deplacement souhaitez vous faire ?\n");
+        printf("Entrez 1 pour aller vers la droite\nEntrez 2 pour aller vers la gauche\nEntrez 3 pour monter a gauche\nEntrez 4 pour pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
+        do{
+            scanf("%i",&dep);
+        }while(dep>7);
+        deplacement(p,j,dep,temp);
+        affichage(p,j);
     }
 }
 int main(){
@@ -609,6 +644,13 @@ int main(){
     int nbj=menu();
     saisiecases(plateau,joueurs,nbj);
     saisiedefaut(plateau,joueurs,6);
+<<<<<<< Updated upstream
     test(plateau,joueurs);
     affichage(plateau,joueurs);
+=======
+    //test(plateau,joueurs);
+    //affichage(plateau,joueurs);
+    Jeu(plateau,joueurs);
+    return 0;
+>>>>>>> Stashed changes
 }
