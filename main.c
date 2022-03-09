@@ -6,7 +6,7 @@ typedef struct cases
     int nbcase;//Numéro de la case
     int equipe;//Equipe de la case, 0 si neutre
     int occupation;// Ocupation de la case 0/1
-    char aff;//Affichage du pion "  " si vide
+    char aff;//Affichage du pion "." si vide
 }cases;
 typedef struct pions
 {
@@ -16,7 +16,6 @@ typedef struct pions
     char nom;//
 }pions;
 void attpion(cases p[122], pions j[61]);
-void testcolor(pions j[61],int i,char retour);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset(cases p[122], pions j[61]){
     int i;
@@ -240,37 +239,42 @@ void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de coul
         HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
-void testcolor(pions j[61],int i,char retour){
-    //char retour;
+int identification(pions j[61], cases p[122], int i){
+    int z;
+    for(z=1;z<61;z++){
+        if(p[i].nbcase==j[z].pcase){
+            return z;
+            printf("Je suis rentre\n");
+        }
+    }
+}
+void testcolor(pions j[61],int i, cases p[122]){
+    int z;
     int couleur;
-    if( j[i].equipe==1){
-        couleur=12;
-    }
-    if( j[i].equipe==2){
-        couleur=11;
-    }
-    if (j[i].equipe==3)
-    {
-        couleur=13;
-    }
-    if (j[i].equipe==4)
-    {
-        couleur=14;
-    }
-    if (j[i].equipe==5)
-    {
+    z=identification(j,p,i);
+    if(j[z].equipe==1){
         couleur=1;
     }
-    if (j[i].equipe==6)
-    {
-        couleur=10;
+    if(j[z].equipe==2){
+        couleur=4;
+    }
+    if(j[z].equipe==3){
+        couleur=15;
+    }
+    if(j[z].equipe==4){
+        couleur=7;
+    }
+    if(j[z].equipe==5){
+        couleur=2;
+    }
+    if(j[z].equipe==6){
+        couleur=14;
     }
     Color(couleur,0);
-    printf("%c ",retour); 
+    printf("%c ",j[z].nom);
     Color(15,0);
 }
-
-void affichage(cases p[122], pions j[61]){
+void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
@@ -282,14 +286,14 @@ void affichage(cases p[122], pions j[61]){
             }
             if(l==1){
                 printf("/ ");
-                testcolor(j,compt,p[compt].aff);
+                testcolor(j,compt,p);
                 printf("\\");
                 printf("\n");
             }
             else{
                 printf("\\ ");
-                testcolor(j,compt,p[compt].aff);
-                printf("/");
+                testcolor(j,compt,p);
+                printf("/   ");
                 printf("\n");
             }
             compt+=1;
@@ -300,15 +304,15 @@ void affichage(cases p[122], pions j[61]){
             }
             if(l==2){
                 printf(" / ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
                 printf("\\ ");
                 printf("\n");
             }
             else{
                 printf(" \\ " );
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
                 printf("/");
                 printf("\n");
             }
@@ -321,21 +325,20 @@ void affichage(cases p[122], pions j[61]){
             if(l==3){
             
                 printf("  / ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+3].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
                 printf("\\ ");
                 printf("\n");
             }
             else{
                 printf("  \\ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
                 printf("/");
                 printf("\n");
             }
-
             compt+=3;
         }    
         if(l==4||l==14){
@@ -345,22 +348,21 @@ void affichage(cases p[122], pions j[61]){
             printf("---------");
             if(l==4){
                 printf("/ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
                 printf("\\");
-                printf("\n");
             }
             else{ 
                 printf("\\ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
                 printf("/");
-                printf("\n");
             }
+            printf("---------\n");
             compt+=4;
         }
         if(l==5||l==13){
@@ -369,36 +371,37 @@ void affichage(cases p[122], pions j[61]){
             }
             if(l==5){
                 printf("  \\ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
-                testcolor(j,compt+4,p[compt+4].aff);
-                testcolor(j,compt+5,p[compt+5].aff);
-                testcolor(j,compt+6,p[compt+6].aff);
-                testcolor(j,compt+7,p[compt+7].aff);
-                testcolor(j,compt+8,p[compt+8].aff);
-                testcolor(j,compt+9,p[compt+9].aff);
-                testcolor(j,compt+10,p[compt+10].aff);
-                testcolor(j,compt+11,p[compt+11].aff);
-                testcolor(j,compt+12,p[compt+12].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
+                testcolor(j,compt+11,p);
+                testcolor(j,compt+12,p);
+                printf("/");
                 printf("\n");
             }
             else{
                 printf("  / ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
-                testcolor(j,compt+4,p[compt+4].aff);
-                testcolor(j,compt+5,p[compt+5].aff);
-                testcolor(j,compt+6,p[compt+6].aff);
-                testcolor(j,compt+7,p[compt+7].aff);
-                testcolor(j,compt+8,p[compt+8].aff);
-                testcolor(j,compt+9,p[compt+9].aff);
-                testcolor(j,compt+10,p[compt+10].aff);
-                testcolor(j,compt+11,p[compt+11].aff);
-                testcolor(j,compt+12,p[compt+12].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
+                testcolor(j,compt+11,p);
+                testcolor(j,compt+12,p);
                 printf("\\");
                 printf("\n");
             }
@@ -410,35 +413,35 @@ void affichage(cases p[122], pions j[61]){
             }
             if(l==6){
                 printf(" \\ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
-                testcolor(j,compt+4,p[compt+4].aff);
-                testcolor(j,compt+5,p[compt+5].aff);
-                testcolor(j,compt+6,p[compt+6].aff);
-                testcolor(j,compt+7,p[compt+7].aff);
-                testcolor(j,compt+8,p[compt+8].aff);
-                testcolor(j,compt+9,p[compt+9].aff);
-                testcolor(j,compt+10,p[compt+10].aff);
-                testcolor(j,compt+11,p[compt+11].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
+                testcolor(j,compt+11,p);
                 printf("/");
                 printf("\n");
             }
             else{
                 printf(" / ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
-                testcolor(j,compt+4,p[compt+4].aff);
-                testcolor(j,compt+5,p[compt+5].aff);
-                testcolor(j,compt+6,p[compt+6].aff);
-                testcolor(j,compt+7,p[compt+7].aff);
-                testcolor(j,compt+8,p[compt+8].aff);
-                testcolor(j,compt+9,p[compt+9].aff);
-                testcolor(j,compt+10,p[compt+10].aff);
-                testcolor(j,compt+11,p[compt+11].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
+                testcolor(j,compt+11,p);
                 printf("\\");
                 printf("\n");
             }
@@ -450,22 +453,34 @@ void affichage(cases p[122], pions j[61]){
             }
             if(l==7){
                 printf("\\ ");
-                testcolor(j,compt,p[compt].aff);
-                testcolor(j,compt+1,p[compt+1].aff);
-                testcolor(j,compt+2,p[compt+2].aff);
-                testcolor(j,compt+3,p[compt+3].aff);
-                testcolor(j,compt+4,p[compt+4].aff);
-                testcolor(j,compt+5,p[compt+5].aff);
-                testcolor(j,compt+6,p[compt+6].aff);
-                testcolor(j,compt+7,p[compt+7].aff);
-                testcolor(j,compt+8,p[compt+8].aff);
-                testcolor(j,compt+9,p[compt+9].aff);
-                testcolor(j,compt+10,p[compt+10].aff);
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
                 printf("/");
                 printf("\n");
             }
             else{
-                printf("/ %c %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff,p[compt+10].aff);
+                printf("/ ");
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                testcolor(j,compt+10,p);
+                printf("\\");
                 printf("\n");
             }
             compt+=11;
@@ -475,11 +490,33 @@ void affichage(cases p[122], pions j[61]){
                 printf("  ");
             }
             if(l==8){
-                printf(" \\ %c %c %c %c %c %c %c %c %c %c /",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff);
+                printf(" \\ ");
+                testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                printf("/");
                 printf("\n");
             }
             else{
-                 printf(" / %c %c %c %c %c %c %c %c %c %c \\",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff,p[compt+9].aff);
+                 printf(" / ");
+                  testcolor(j,compt,p);
+                testcolor(j,compt+1,p);
+                testcolor(j,compt+2,p);
+                testcolor(j,compt+3,p);
+                testcolor(j,compt+4,p);
+                testcolor(j,compt+5,p);
+                testcolor(j,compt+6,p);
+                testcolor(j,compt+7,p);
+                testcolor(j,compt+8,p);
+                testcolor(j,compt+9,p);
+                printf("\\");
                 printf("\n");
             }
             compt+=10;
@@ -488,7 +525,17 @@ void affichage(cases p[122], pions j[61]){
             for(espace=0;espace<4;espace++){
                 printf("  ");
             }
-            printf("  | %c %c %c %c %c %c %c %c %c |",p[compt].aff,p[compt+1].aff,p[compt+2].aff,p[compt+3].aff,p[compt+4].aff,p[compt+5].aff,p[compt+6].aff,p[compt+7].aff,p[compt+8].aff);
+            printf("  | ");
+            testcolor(j,compt,p);
+            testcolor(j,compt+1,p);
+            testcolor(j,compt+2,p);
+            testcolor(j,compt+3,p);
+            testcolor(j,compt+4,p);
+            testcolor(j,compt+5,p);
+            testcolor(j,compt+6,p);
+            testcolor(j,compt+7,p);
+            testcolor(j,compt+8,p);
+            printf("|");
             printf("\n");
                 
             compt+=9;
