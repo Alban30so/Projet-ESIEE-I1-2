@@ -130,23 +130,23 @@ void saisiedefaut(cases p[122],pions j[61],int nbj){
     j[33].pcase=77;
     j[34].pcase=87;
     j[35].pcase=88;
-    j[36].pcase=88;
-    j[37].pcase=89;
-    j[38].pcase=99;
-    j[39].pcase=100;
-    j[40].pcase=101;
-    j[41].pcase=102;
-    j[42].pcase=75;
-    j[43].pcase=85;
-    j[44].pcase=86;
-    j[45].pcase=96;
-    j[46].pcase=97;
-    j[47].pcase=98;
-    j[48].pcase=108;
-    j[49].pcase=109;
-    j[50].pcase=110;
-    j[51].pcase=111;
-    j[52].pcase=112;
+    j[36].pcase=89;
+    j[37].pcase=99;
+    j[38].pcase=100;
+    j[39].pcase=101;
+    j[40].pcase=102;
+    j[41].pcase=75;
+    j[42].pcase=85;
+    j[43].pcase=86;
+    j[44].pcase=96;
+    j[45].pcase=97;
+    j[46].pcase=98;
+    j[47].pcase=108;
+    j[48].pcase=109;
+    j[49].pcase=110;
+    j[50].pcase=111;
+    j[51].pcase=112;
+    j[52].pcase=113;
     j[53].pcase=114;
     j[54].pcase=115;
     j[55].pcase=116;
@@ -219,7 +219,7 @@ void test(cases p[122], pions j[61]){
         printf("Numero de pion : %i  || Numero de case : %i  || equipe : %i  || nom : %c\n",j[i].nbpion,j[i].pcase,j[i].equipe,j[i].nom);
     }
 }
-void pionsgrille(cases p[122],pions j[61]){
+cases* pionsgrille(cases p[122],pions j[61]){
     //Fonction permettant le remplacement de l'affichage des cases
     int i,z,temp=0,c=0;
     for(i=1;i<121;i++){
@@ -233,6 +233,7 @@ void pionsgrille(cases p[122],pions j[61]){
             }
         }
     }
+    return p;
 }
 void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
 {
@@ -249,36 +250,49 @@ int identification(pions j[61], cases p[122], int i){
     }
 }
 void testcolor(pions j[61],int i, cases p[122]){
-    int z;
+    int z, temp=0;
     int couleur;
     z=identification(j,p,i);
     if(j[z].equipe==1){
         couleur=1;
+        temp=1;
     }
     if(j[z].equipe==2){
         couleur=4;
+        temp=1;
     }
     if(j[z].equipe==3){
         couleur=15;
+        temp=1;
     }
     if(j[z].equipe==4){
         couleur=7;
+        temp=1;
     }
     if(j[z].equipe==5){
         couleur=2;
+        temp=1;
     }
     if(j[z].equipe==6){
         couleur=14;
+        temp=1;
     }
-    Color(couleur,0);
-    printf("%c ",j[z].nom);
-    Color(15,0);
+    if(temp==1){
+        Color(couleur,0);
+        printf("%c ",j[z].nom);
+        Color(15,0);
+    }
+    else{
+        Color(15,0);
+        printf(". ");
+        Color(15,0);
+    }
 }
 void affichage(cases p[122], pions j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
-    pionsgrille(p,j);
+    p=pionsgrille(p,j);
     for(l=0;l<18;l++){
         if(l==1||l==17){
             for(espace=0;espace<9;espace++){
