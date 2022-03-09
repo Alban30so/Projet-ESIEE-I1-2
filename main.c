@@ -616,9 +616,35 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==3&& p[1].occupation==0){
         j[pion].pcase=1;
+        erreur=0;
     }
     if(j[pion].pcase==6||j[pion].pcase==5){
         j[pion].pcase=j[pion].pcase-3;
+        erreur=0;
+    }
+    if(j[pion].pcase<11&& j[pion].pcase>7){
+        j[pion].pcase=j[pion].pcase-4;
+        erreur=0;
+    }
+    if(j[pion].pcase<20 && j[pion].pcase>15){
+        j[pion].pcase=j[pion].pcase-9;
+        erreur=0;
+    }
+    if(j[pion].pcase>23&&j[pion].pcase<36){
+        j[pion].pcase=j[pion].pcase-13;
+        erreur=0;
+    }
+    if(j[pion].pcase>35 && j[pion].pcase<47){
+        j[pion].pcase=j[pion].pcase-12;
+        erreur=0;
+    }
+    if(j[pion].pcase>46 && j[pion].pcase<57){
+        j[pion].pcase=j[pion].pcase-11;
+        erreur=0;
+    }
+    if(j[pion].pcase>56 && j[pion].pcase<66){
+        j[pion].pcase=j[pion].pcase-10;
+        erreur=0;
     }
     return erreur;
 }
