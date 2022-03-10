@@ -624,7 +624,7 @@ int dephg(cases p[122],pions j[61],int pion){
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
         erreur=1;
     }
-    if(j[pion].pcase==3&& p[1].occupation==0){
+    if(j[pion].pcase==3&& p[1].occupation==1){
         if(verifoccupation(p,1)==1){
             j[pion].pcase=1;
             erreur=0;
@@ -659,18 +659,139 @@ int dephd(cases p[122],pions j[61],int pion){
         }
     }
     if(j[pion].pcase==4||j[pion].pcase==5){
-        j[pion].pcase=j[pion].pcase-2;
-        erreur=0;
+        if(verifoccupation(p,j[pion].pcase-2)==1){
+            j[pion].pcase=j[pion].pcase-2;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
     }
     if(j[pion].pcase==7||j[pion].pcase==8||j[pion].pcase==9){
-        j[pion].pcase=j[pion].pcase-3;
-        erreur=0;
+        if(verifoccupation(p,j[pion].pcase-3)==1){
+            j[pion].pcase=j[pion].pcase-3;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
     }
     if(j[pion].pcase<19&&j[pion].pcase>14){
-        j[pion].pcase=j[pion].pcase-8;
+        if(verifoccupation(p,j[pion].pcase-8)==1){
+            j[pion].pcase=j[pion].pcase-8;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
     }
     if(j[pion].pcase<=35&&j[pion].pcase>=24){
-        j[pion].pcase=j[pion].pcase-12;
+        if(verifoccupation(p,j[pion].pcase-12)==1){
+            j[pion].pcase=j[pion].pcase-12;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=36&&j[pion].pcase<=46){
+        if(verifoccupation(p,j[pion].pcase-11)==1){
+            j[pion].pcase=j[pion].pcase-11;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=47&&j[pion].pcase<=56){
+        if(verifoccupation(p,j[pion].pcase-10)==1){
+            j[pion].pcase=j[pion].pcase-10;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=57&&j[pion].pcase<=65){
+        if(verifoccupation(p,j[pion].pcase-9)==1){
+            j[pion].pcase=j[pion].pcase-9;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=66&&j[pion].pcase<=74){
+        if(verifoccupation(p,j[pion].pcase-9)==1){
+            j[pion].pcase=j[pion].pcase-9;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=76&&j[pion].pcase<=85){
+        if(verifoccupation(p,j[pion].pcase-10)==1){
+            j[pion].pcase=j[pion].pcase-10;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=87&&j[pion].pcase<=97){
+        if(verifoccupation(p,j[pion].pcase-11)==1){
+            j[pion].pcase=j[pion].pcase-11;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=99&&j[pion].pcase<=110){
+        if(verifoccupation(p,j[pion].pcase-12)==1){
+            j[pion].pcase=j[pion].pcase-12;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=112&&j[pion].pcase<=115){
+        if(verifoccupation(p,j[pion].pcase-8)==1){
+            j[pion].pcase=j[pion].pcase-8;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase>=116&&j[pion].pcase<=118){
+        if(verifoccupation(p,j[pion].pcase-3)==1){
+            j[pion].pcase=j[pion].pcase-3;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase==119||j[pion].pcase==120){
+        if(verifoccupation(p,j[pion].pcase-2)==1){
+            j[pion].pcase=j[pion].pcase-2;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
+    }
+    if(j[pion].pcase==120){
+        if(verifoccupation(p,j[pion].pcase-1)==1){
+            j[pion].pcase=j[pion].pcase-1;
+            erreur=0;
+        }
+        else{
+            erreur=1;
+        }
     }
     return erreur;
 }
