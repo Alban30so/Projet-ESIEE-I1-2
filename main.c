@@ -1239,15 +1239,19 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
     }
         break;
     case 3 ://deplacement haut gauche
-        dephg(p,j,pion);
+        erreur=dephg(p,j,pion);
         break;
     case 4 ://deplacement haut droite
+        erreur=dephd(p,j,pion);
         break;
     case 5 ://deplacement bas gauche
+        erreur=depbg(p,j,pion);
         break;
     case 6 ://deplacement bas droite
+        erreur=depbd(p,j,pion);
         break;
     }
+    return erreur;
 }
 void restaurationsauvegarde(pions j[61]){
     printf("Fonctionnalite en beta, quelques bug peuvent survenir.\n");
