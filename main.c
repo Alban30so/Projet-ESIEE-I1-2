@@ -625,13 +625,17 @@ int dephg(cases p[122],pions j[61],int pion){
         return 1;
     }
     if(j[pion].pcase==3&& p[1].occupation==0){
+        p[j[pion].pcase].occupation=0;
         j[pion].pcase=1;
+        p[j[pion].pcase].occupation=1;
         return 0;
     }
     if(j[pion].pcase==6||j[pion].pcase==5){
         n=j[pion].pcase;
         if(verifoccupation(p,n-3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -641,7 +645,9 @@ int dephg(cases p[122],pions j[61],int pion){
     if(j[pion].pcase<11&& j[pion].pcase>7){
         n=j[pion].pcase;
         if(verifoccupation(p,n-4)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
+            p[j[pion].pcase].occupation=1;
             return 0;
         } 
         else{
@@ -651,7 +657,9 @@ int dephg(cases p[122],pions j[61],int pion){
     if(j[pion].pcase<20 && j[pion].pcase>15){
         n=j[pion].pcase;
         if(verifoccupation(p,n-9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -660,7 +668,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>23&&j[pion].pcase<36){
         if(verifoccupation(p,j[pion].pcase-13)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -669,7 +679,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>35 && j[pion].pcase<47){
         if(verifoccupation(p,j[pion].pcase-12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -678,7 +690,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>46 && j[pion].pcase<57){
         if(verifoccupation(p,j[pion].pcase-11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -687,7 +701,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>56 && j[pion].pcase<66){
         if(verifoccupation(p,j[pion].pcase-10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -696,7 +712,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>66 && j[pion].pcase<76){
         if(verifoccupation(p,j[pion].pcase-10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -705,7 +723,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>76 && j[pion].pcase<87){
         if(verifoccupation(p,j[pion].pcase-11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -714,7 +734,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>87 && j[pion].pcase<99){
         if(verifoccupation(p,j[pion].pcase-12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -723,7 +745,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>99 && j[pion].pcase<112){
         if(verifoccupation(p,j[pion].pcase-13)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -732,7 +756,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>111 && j[pion].pcase<116){
         if(verifoccupation(p,j[pion].pcase-9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -741,7 +767,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>115 && j[pion].pcase<119){
         if(verifoccupation(p,j[pion].pcase-4)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -750,7 +778,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==119 || j[pion].pcase==120){
         if(verifoccupation(p,j[pion].pcase-3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -759,7 +789,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==120){
         if(verifoccupation(p,j[pion].pcase-2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -770,7 +802,9 @@ int dephg(cases p[122],pions j[61],int pion){
     int erreur;
     if(j[pion].pcase==1){
         if(verifoccupation(p,2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -779,7 +813,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
         if(verifoccupation(p,j[pion].pcase+2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -788,7 +824,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
         if(verifoccupation(p,j[pion].pcase+2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -797,7 +835,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
         if(verifoccupation(p,j[pion].pcase+3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -806,7 +846,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
         if(verifoccupation(p,j[pion].pcase+8)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -815,7 +857,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
         if(verifoccupation(p,j[pion].pcase+12)==1){
-            j[pion].pcase=j[pion].pcase+12; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -824,7 +868,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
         if(verifoccupation(p,j[pion].pcase+11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -833,7 +879,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
         if(verifoccupation(p,j[pion].pcase+10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -842,7 +890,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
         if(verifoccupation(p,j[pion].pcase+9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -851,7 +901,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
         if(verifoccupation(p,j[pion].pcase+9)==1){
-            j[pion].pcase=j[pion].pcase+9; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -860,7 +912,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
         if(verifoccupation(p,j[pion].pcase+10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -869,7 +923,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
         if(verifoccupation(p,j[pion].pcase+11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -878,7 +934,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
         if(verifoccupation(p,j[pion].pcase+8)){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -887,7 +945,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
         if(verifoccupation(p,j[pion].pcase+3)==1){
-            j[pion].pcase=j[pion].pcase+3; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -896,7 +956,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
         if(verifoccupation(p,j[pion].pcase+2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -905,7 +967,9 @@ int dephg(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==119){
         if(verifoccupation(p,j[pion].pcase+1)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -924,7 +988,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==2){
         if(verifoccupation(p,1)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=1;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -933,7 +999,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==4||j[pion].pcase==5){
         if(verifoccupation(p,j[pion].pcase-2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -942,7 +1010,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==7||j[pion].pcase==8||j[pion].pcase==9){
         if(verifoccupation(p,j[pion].pcase-3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -951,7 +1021,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase<19&&j[pion].pcase>14){
         if(verifoccupation(p,j[pion].pcase-8)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -960,7 +1032,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase<=35&&j[pion].pcase>=24){
         if(verifoccupation(p,j[pion].pcase-12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -969,7 +1043,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=46){
         if(verifoccupation(p,j[pion].pcase-11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -978,7 +1054,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=56){
         if(verifoccupation(p,j[pion].pcase-10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -987,7 +1065,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
         if(verifoccupation(p,j[pion].pcase-9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -996,7 +1076,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=74){
         if(verifoccupation(p,j[pion].pcase-9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1005,7 +1087,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=76&&j[pion].pcase<=85){
         if(verifoccupation(p,j[pion].pcase-10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1014,7 +1098,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=97){
         if(verifoccupation(p,j[pion].pcase-11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1023,7 +1109,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=99&&j[pion].pcase<=110){
         if(verifoccupation(p,j[pion].pcase-12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1032,7 +1120,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=115){
         if(verifoccupation(p,j[pion].pcase-8)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1041,7 +1131,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase>=116&&j[pion].pcase<=118){
         if(verifoccupation(p,j[pion].pcase-3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1050,7 +1142,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==119||j[pion].pcase==120){
         if(verifoccupation(p,j[pion].pcase-2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1059,7 +1153,9 @@ int dephd(cases p[122],pions j[61],int pion){
     }
     if(j[pion].pcase==120){
         if(verifoccupation(p,j[pion].pcase-1)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-1;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1072,7 +1168,9 @@ int depbd(cases p[61],pions j[61],int pion){
     int erreur;
     if(j[pion].pcase==1){
         if(verifoccupation(p,j[pion].pcase+2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1081,7 +1179,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
         if(verifoccupation(p,j[pion].pcase+3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1090,7 +1190,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
         if(verifoccupation(p,j[pion].pcase+3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1099,7 +1201,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
         if(verifoccupation(p,j[pion].pcase+4)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+4;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1108,7 +1212,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
         if(verifoccupation(p,j[pion].pcase+9)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1117,7 +1223,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
         if(verifoccupation(p,j[pion].pcase+13)==1){
-            j[pion].pcase=j[pion].pcase+13; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+13;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1126,7 +1234,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
         if(verifoccupation(p,j[pion].pcase+12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1135,7 +1245,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
         if(verifoccupation(p,j[pion].pcase+11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1144,7 +1256,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
         if(verifoccupation(p,j[pion].pcase+10)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1153,7 +1267,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
         if(verifoccupation(p,j[pion].pcase+10)==1){
-            j[pion].pcase=j[pion].pcase+10; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+10;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1162,7 +1278,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
         if(verifoccupation(p,j[pion].pcase+11)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1171,7 +1289,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
         if(verifoccupation(p,j[pion].pcase+12)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1180,7 +1300,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
         if(verifoccupation(p,j[pion].pcase+9)){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1189,7 +1311,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
         if(verifoccupation(p,j[pion].pcase+4)==1){
-            j[pion].pcase=j[pion].pcase+4; 
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+4;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1198,7 +1322,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
         if(verifoccupation(p,j[pion].pcase+3)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1207,7 +1333,9 @@ int depbd(cases p[61],pions j[61],int pion){
     }
     if(j[pion].pcase==119){
         if(verifoccupation(p,j[pion].pcase+2)==1){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
+            p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
@@ -1224,7 +1352,9 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
     {
     case 1://deplacement vers la gauche
         if(p[j[pion].pcase-1].occupation==0){
+            p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-1;
+            p[j[pion].pcase].occupation=1;
             erreur=0;
         }
         else{
@@ -1235,7 +1365,9 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         break;
     case 2 ://deplacement vers la droite
         if(p[j[pion].pcase+1].occupation==0){
+        p[j[pion].pcase].occupation=0;
         j[pion].pcase=j[pion].pcase+1;
+        p[j[pion].pcase].occupation=1;
     }
         break;
     case 3 ://deplacement haut gauche
@@ -1266,7 +1398,7 @@ void restaurationsauvegarde(pions j[61]){
      for(i=0;i<36;i++){
     fscanf(fp,"%c %i %i %i\n", &j[i].nom, &j[i].equipe, &j[i].nbpion,&j[i].pcase); 
     }
-    }
+}
 
 void createsave(pions j[61]){
     printf("Enregistrement en cours...\n");
