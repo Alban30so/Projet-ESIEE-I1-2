@@ -1346,6 +1346,7 @@ int depbd(cases p[61],pions j[61],int pion){
         return 1;
     }
 }
+
 int deplacement(cases p[122],pions j[61],int dep,int pion){
     int erreur=0;
     switch (dep)
@@ -1372,6 +1373,9 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         break;
     case 3 ://deplacement haut gauche
         erreur=dephg(p,j,pion);
+        if(erreur==1){
+
+        }
         break;
     case 4 ://deplacement haut droite
         erreur=dephd(p,j,pion);
@@ -1422,7 +1426,7 @@ void Jeu(cases p[122], pions j[61]){
     int erreur;
     affichage(p,j);
     occupation(p,j);
-    int run=1,tour=2,temp,dep;
+    int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
         printf("Au tour de l'equipe %i !\n",tour);
@@ -1442,6 +1446,12 @@ void Jeu(cases p[122], pions j[61]){
             }
         }while(dep>7||erreur==1);
         affichage(p,j);
+        if(tour<6){
+            tour+=1;
+        }
+        else{
+            tour=1;
+        }
     }
 }
 int main(){
