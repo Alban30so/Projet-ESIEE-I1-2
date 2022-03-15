@@ -29,7 +29,7 @@ void reset(cases p[122], pions j[41]){
         j[i].nom='0';
         j[i].pcase=0;
     }
-    printf("Toutes les cases ont ete reinitialisee corectement !\n");
+    //printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
 void saisiecases(cases p[122], pions j[41]){
     //cette fonciton saisie par défaut les cases pour un début de partie.
@@ -49,47 +49,27 @@ void base(cases p[122]){
         }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=6;
-        }
-        //Equipe blanche
-        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-            p[i].equipe=3;
-        }
-        //Equipe noire
-        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-            p[i].equipe=4;
+            p[i].equipe=2;
         }
         //Equipe rouge
         if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-            p[i].equipe=2;
+            p[i].equipe=3;
         }
         else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-            p[i].equipe=2;
+            p[i].equipe=3;
         }
         else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-            p[i].equipe=2;
+            p[i].equipe=3;
         }
         //Equipe verte
         if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-            p[i].equipe=5;
+            p[i].equipe=4;
         }
         else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-            p[i].equipe=5;
+            p[i].equipe=4;
         }
         else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-            p[i].equipe=5;
+            p[i].equipe=4;
         }
     }
 }
@@ -177,18 +157,6 @@ void attpion(cases p[122], pions j[41]){
                 c4+=1;
                 temp=2;
             }
-            if(c5<=9&&temp==0){
-                j[i].equipe=5;
-                j[i].nom=nom[c5];
-                c5+=1;
-                temp=2;
-            }
-            if(c6<=9&&temp==0){
-                j[i].equipe=6;
-                j[i].nom=nom[c6];
-                c6+=1;
-                temp=2;
-            }
         }
     }
 }
@@ -246,14 +214,6 @@ void testcolor(pions j[41],int i, cases p[122]){
         temp=1;
     }
     if(j[z].equipe==4){
-        couleur=11;
-        temp=1;
-    }
-    if(j[z].equipe==5){
-        couleur=2;
-        temp=1;
-    }
-    if(j[z].equipe==6){
         couleur=14;
         temp=1;
     }
