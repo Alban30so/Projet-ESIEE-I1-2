@@ -1277,7 +1277,9 @@ void createsave(pions j[21]){
     //printf("fermer document\n ");
     fclose(output); // close
 }
-void Jeu2(cases p[122], pions j[21]){
+void Jeu2(){
+    cases p[122];
+    pions j[21];
     int erreur;
     affichage(p,j);
     occupation(p,j);
@@ -1308,19 +1310,4 @@ void Jeu2(cases p[122], pions j[21]){
             tour=1;
         }
     }
-}
-int main(){
-    cases plateau[122];
-    pions joueurs[21];
-    reset(plateau,joueurs);
-    int i;
-    for(i=0;i<122;i++){
-        plateau[i].aff='.';
-    }
-    saisiecases(plateau,joueurs);
-    saisiedefaut(plateau,joueurs,6);
-    //test(plateau,joueurs);
-    //affichage(plateau,joueurs);
-    Jeu2(plateau,joueurs);
-    return 0;
 }
