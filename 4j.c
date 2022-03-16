@@ -8,16 +8,16 @@ typedef struct cases4
     int occupation;// Ocupation de la case 0/1
     char aff;//Affichage du pion "." si vide
 }cases4;
-typedef struct pions
+typedef struct pions4
 {
     int nbpion;//numéro du pion
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
     char nom;//
-}pions;
-void attpion(cases4 p[122], pions j[41]);
+}pions4;
+void attpion4(cases4 p[122], pions4 j[41]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
-void reset(cases4 p[122], pions j[41]){
+void reset4(cases4 p[122], pions4 j[41]){
     int i;
     for(i=0;i<122;i++){
         p[i].nbcase=0;
@@ -31,16 +31,16 @@ void reset(cases4 p[122], pions j[41]){
     }
     //printf("Toutes les cases4 ont ete reinitialisee corectement !\n");
 }
-void saisiecases4(cases4 p[122], pions j[41]){
+void saisiecases4(cases4 p[122], pions4 j[41]){
     //cette fonciton saisie par défaut les cases4 pour un début de partie.
     int i;
     for(i=1;i<122;i++){
         p[i].nbcase=i;
         //printf("%i, ",p[i].nbcase);
     }
-    attpion(p,j);
+    attpion4(p,j);
 }
-void base(cases4 p[122]){
+void base4(cases4 p[122]){
     int i;
     for(i=0;i<122;i++){
         //Deux joueurs ou plus : Equipe Bleu et Jaune
@@ -73,8 +73,8 @@ void base(cases4 p[122]){
         }
     }
 }
-void saisiedefaut(cases4 p[122],pions j[41],int nbj){
-    base(p);
+void saisiedefaut4 (cases4 p[122],pions4 j[41],int nbj){
+    base4(p);
     j[1].pcase=1;
     j[2].pcase=2;
     j[3].pcase=3;
@@ -116,7 +116,7 @@ void saisiedefaut(cases4 p[122],pions j[41],int nbj){
     j[39].pcase=120;
     j[40].pcase=121;
 }
-void attpion(cases4 p[122], pions j[41]){
+void attpion4(cases4 p[122], pions4 j[41]){
     int equ=1,i,temp=0;
     char nom[10];
     nom[0]='1';
@@ -160,14 +160,14 @@ void attpion(cases4 p[122], pions j[41]){
         }
     }
 }
-void test(cases4 p[122], pions j[41]){
+void test4(cases4 p[122], pions4 j[41]){
     int i;
     printf("Affichage liste joueurs\n");
     for(i=0;i<41;i++){
         printf("Numero de pion : %i  || Numero de case : %i  || equipe : %i  || nom : %c\n",j[i].nbpion,j[i].pcase,j[i].equipe,j[i].nom);
     }
 }
-cases4* pionsgrille(cases4 p[122],pions j[41]){
+cases4* pions4grille(cases4 p[122],pions4 j[41]){
     //Fonction permettant le remplacement de l'affichage des cases4
     int i,z,temp=0,c=0;
     for(i=1;i<121;i++){
@@ -183,12 +183,12 @@ cases4* pionsgrille(cases4 p[122],pions j[41]){
     }
     return p;
 }
-void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
+void Color4(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
 {
         HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
-int identification(pions j[41], cases4 p[122], int i){
+int identification4(pions4 j[41], cases4 p[122], int i){
     int z;
     for(z=1;z<41;z++){
         if(p[i].nbcase==j[z].pcase){
@@ -197,10 +197,10 @@ int identification(pions j[41], cases4 p[122], int i){
         }
     }
 }
-void testcolor(pions j[41],int i, cases4 p[122]){
+void testcolor4(pions4 j[41],int i, cases4 p[122]){
     int z, temp=0;
     int couleur;
-    z=identification(j,p,i);
+    z=identification4(j,p,i);
     if(j[z].equipe==1){
         couleur=1;
         temp=1;
@@ -218,21 +218,21 @@ void testcolor(pions j[41],int i, cases4 p[122]){
         temp=1;
     }
     if(temp==1){
-        Color(couleur,0);
+        Color4(couleur,0);
         printf("%c ",j[z].nom);
-        Color(15,0);
+        Color4(15,0);
     }
     else{
-        Color(15,0);
+        Color4(15,0);
         printf(". ");
-        Color(15,0);
+        Color4(15,0);
     }
 }
-void affichage(cases4 p[122], pions j[60]){
+void affichage4(cases4 p[122], pions4 j[60]){
     int l,compt=1;//variable représentant la ligne d'affichage
     int espace;
     printf("                   ---\n");
-    p=pionsgrille(p,j);
+    p=pions4grille(p,j);
     for(l=0;l<18;l++){
         if(l==1||l==17){
             for(espace=0;espace<9;espace++){
@@ -240,13 +240,13 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==1){
                 printf("/ ");
-                testcolor(j,compt,p);
+                testcolor4(j,compt,p);
                 printf("\\");
                 printf("\n");
             }
             else{
                 printf("\\ ");
-                testcolor(j,compt,p);
+                testcolor4(j,compt,p);
                 printf("/   ");
                 printf("\n");
             }
@@ -258,15 +258,15 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==2){
                 printf(" / ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
                 printf("\\ ");
                 printf("\n");
             }
             else{
                 printf(" \\ " );
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
                 printf("/");
                 printf("\n");
             }
@@ -279,17 +279,17 @@ void affichage(cases4 p[122], pions j[60]){
             if(l==3){
             
                 printf("  / ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
                 printf("\\ ");
                 printf("\n");
             }
             else{
                 printf("  \\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
                 printf("/");
                 printf("\n");
             }
@@ -302,18 +302,18 @@ void affichage(cases4 p[122], pions j[60]){
             printf("---------");
             if(l==4){
                 printf("/ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
                 printf("\\");
             }
             else{ 
                 printf("\\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
                 printf("/");
             }
             printf("---------\n");
@@ -325,37 +325,37 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==5){
                 printf("  \\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
-                testcolor(j,compt+11,p);
-                testcolor(j,compt+12,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
+                testcolor4(j,compt+11,p);
+                testcolor4(j,compt+12,p);
                 printf("/");
                 printf("\n");
             }
             else{
                 printf("  / ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
-                testcolor(j,compt+11,p);
-                testcolor(j,compt+12,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
+                testcolor4(j,compt+11,p);
+                testcolor4(j,compt+12,p);
                 printf("\\");
                 printf("\n");
             }
@@ -367,35 +367,35 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==6){
                 printf(" \\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
-                testcolor(j,compt+11,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
+                testcolor4(j,compt+11,p);
                 printf("/");
                 printf("\n");
             }
             else{
                 printf(" / ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
-                testcolor(j,compt+11,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
+                testcolor4(j,compt+11,p);
                 printf("\\");
                 printf("\n");
             }
@@ -407,33 +407,33 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==7){
                 printf("\\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
                 printf("/");
                 printf("\n");
             }
             else{
                 printf("/ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
-                testcolor(j,compt+10,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
+                testcolor4(j,compt+10,p);
                 printf("\\");
                 printf("\n");
             }
@@ -445,31 +445,31 @@ void affichage(cases4 p[122], pions j[60]){
             }
             if(l==8){
                 printf(" \\ ");
-                testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
+                testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
                 printf("/");
                 printf("\n");
             }
             else{
                  printf(" / ");
-                  testcolor(j,compt,p);
-                testcolor(j,compt+1,p);
-                testcolor(j,compt+2,p);
-                testcolor(j,compt+3,p);
-                testcolor(j,compt+4,p);
-                testcolor(j,compt+5,p);
-                testcolor(j,compt+6,p);
-                testcolor(j,compt+7,p);
-                testcolor(j,compt+8,p);
-                testcolor(j,compt+9,p);
+                  testcolor4(j,compt,p);
+                testcolor4(j,compt+1,p);
+                testcolor4(j,compt+2,p);
+                testcolor4(j,compt+3,p);
+                testcolor4(j,compt+4,p);
+                testcolor4(j,compt+5,p);
+                testcolor4(j,compt+6,p);
+                testcolor4(j,compt+7,p);
+                testcolor4(j,compt+8,p);
+                testcolor4(j,compt+9,p);
                 printf("\\");
                 printf("\n");
             }
@@ -480,15 +480,15 @@ void affichage(cases4 p[122], pions j[60]){
                 printf("  ");
             }
             printf("  | ");
-            testcolor(j,compt,p);
-            testcolor(j,compt+1,p);
-            testcolor(j,compt+2,p);
-            testcolor(j,compt+3,p);
-            testcolor(j,compt+4,p);
-            testcolor(j,compt+5,p);
-            testcolor(j,compt+6,p);
-            testcolor(j,compt+7,p);
-            testcolor(j,compt+8,p);
+            testcolor4(j,compt,p);
+            testcolor4(j,compt+1,p);
+            testcolor4(j,compt+2,p);
+            testcolor4(j,compt+3,p);
+            testcolor4(j,compt+4,p);
+            testcolor4(j,compt+5,p);
+            testcolor4(j,compt+6,p);
+            testcolor4(j,compt+7,p);
+            testcolor4(j,compt+8,p);
             printf("|");
             printf("\n");
                 
@@ -497,7 +497,7 @@ void affichage(cases4 p[122], pions j[60]){
     }
     printf("                   ---\n");
 }
-int recherchepion(pions j[41],int equipe, char numero){
+int recherchepion4(pions4 j[41],int equipe, char numero){
     int i;
     for(i=1;i<41;i++){
         if(j[i].equipe==equipe && j[i].nom==numero){
@@ -505,7 +505,7 @@ int recherchepion(pions j[41],int equipe, char numero){
         }
     }
 }
-void occupation(cases4 p[122],pions j[41]){
+void occupation4(cases4 p[122],pions4 j[41]){
     int i,k,temp=0;
     for(i=1;i<122;i++){
         temp=0;
@@ -521,7 +521,7 @@ void occupation(cases4 p[122],pions j[41]){
         //printf("la case %i est = %i \n",p[i].nbcase,p[i].occupation);
     }
 }
-int verifoccupation(cases4 p[122],int n){
+int verfioccupation4(cases4 p[122],int n){
     int autorisation;
     if(p[n].occupation==0){
         autorisation=1;
@@ -531,7 +531,7 @@ int verifoccupation(cases4 p[122],int n){
     }
     return autorisation;
 }
-int dephg(cases4 p[122],pions j[41],int pion){
+int dephg4(cases4 p[122],pions4 j[41],int pion){
     int erreur,n;
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
         return 1;
@@ -544,7 +544,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
     }
     if(j[pion].pcase==6||j[pion].pcase==5){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-3)==1){
+        if(verfioccupation4(p,n-3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
@@ -556,7 +556,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
     }
     if(j[pion].pcase<11&& j[pion].pcase>7){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-4)==1){
+        if(verfioccupation4(p,n-4)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
             p[j[pion].pcase].occupation=1;
@@ -568,7 +568,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
     }      
     if(j[pion].pcase<20 && j[pion].pcase>15){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-9)==1){
+        if(verfioccupation4(p,n-9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
@@ -579,7 +579,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>23&&j[pion].pcase<36){
-        if(verifoccupation(p,j[pion].pcase-13)==1){
+        if(verfioccupation4(p,j[pion].pcase-13)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
             p[j[pion].pcase].occupation=1;
@@ -590,7 +590,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>35 && j[pion].pcase<47){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verfioccupation4(p,j[pion].pcase-12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
@@ -601,7 +601,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>46 && j[pion].pcase<57){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verfioccupation4(p,j[pion].pcase-11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
@@ -612,7 +612,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>56 && j[pion].pcase<66){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verfioccupation4(p,j[pion].pcase-10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
@@ -623,7 +623,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>66 && j[pion].pcase<76){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verfioccupation4(p,j[pion].pcase-10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
@@ -634,7 +634,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>76 && j[pion].pcase<87){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verfioccupation4(p,j[pion].pcase-11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
@@ -645,7 +645,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>87 && j[pion].pcase<99){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verfioccupation4(p,j[pion].pcase-12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
@@ -656,7 +656,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>99 && j[pion].pcase<112){
-        if(verifoccupation(p,j[pion].pcase-13)==1){
+        if(verfioccupation4(p,j[pion].pcase-13)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
             p[j[pion].pcase].occupation=1;
@@ -667,7 +667,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>111 && j[pion].pcase<116){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verfioccupation4(p,j[pion].pcase-9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
@@ -678,7 +678,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>115 && j[pion].pcase<119){
-        if(verifoccupation(p,j[pion].pcase-4)==1){
+        if(verfioccupation4(p,j[pion].pcase-4)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
             p[j[pion].pcase].occupation=1;
@@ -689,7 +689,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==119 || j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verfioccupation4(p,j[pion].pcase-3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
@@ -700,7 +700,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verfioccupation4(p,j[pion].pcase-2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
@@ -710,10 +710,10 @@ int dephg(cases4 p[122],pions j[41],int pion){
             return 1;
         }
     }
-}int depbg(cases4 p[122],pions j[41],int pion){
+}int depbg4(cases4 p[122],pions4 j[41],int pion){
     int erreur;
     if(j[pion].pcase==1){
-        if(verifoccupation(p,2)==1){
+        if(verfioccupation4(p,2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -724,7 +724,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verfioccupation4(p,j[pion].pcase+2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -735,7 +735,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verfioccupation4(p,j[pion].pcase+2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -746,7 +746,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verfioccupation4(p,j[pion].pcase+3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
@@ -757,7 +757,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
-        if(verifoccupation(p,j[pion].pcase+8)==1){
+        if(verfioccupation4(p,j[pion].pcase+8)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
             p[j[pion].pcase].occupation=1;
@@ -768,7 +768,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verfioccupation4(p,j[pion].pcase+12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
@@ -779,7 +779,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verfioccupation4(p,j[pion].pcase+11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
@@ -790,7 +790,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verfioccupation4(p,j[pion].pcase+10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
@@ -801,7 +801,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verfioccupation4(p,j[pion].pcase+9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
@@ -812,7 +812,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verfioccupation4(p,j[pion].pcase+9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
@@ -823,7 +823,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verfioccupation4(p,j[pion].pcase+10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
@@ -834,7 +834,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verfioccupation4(p,j[pion].pcase+11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
@@ -845,7 +845,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
-        if(verifoccupation(p,j[pion].pcase+8)){
+        if(verfioccupation4(p,j[pion].pcase+8)){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
             p[j[pion].pcase].occupation=1;
@@ -856,7 +856,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verfioccupation4(p,j[pion].pcase+3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
@@ -867,7 +867,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verfioccupation4(p,j[pion].pcase+2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -878,7 +878,7 @@ int dephg(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==119){
-        if(verifoccupation(p,j[pion].pcase+1)==1){
+        if(verfioccupation4(p,j[pion].pcase+1)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
             p[j[pion].pcase].occupation=1;
@@ -893,13 +893,13 @@ int dephg(cases4 p[122],pions j[41],int pion){
     }
 }
 
-int dephd(cases4 p[122],pions j[41],int pion){
+int dephd4(cases4 p[122],pions4 j[41],int pion){
     int erreur;
     if(j[pion].pcase==1||j[pion].pcase==3||j[pion].pcase==6||j[pion].pcase==10||j[pion].pcase==11||j[pion].pcase==12||j[pion].pcase==13||j[pion].pcase==14||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==19||j[pion].pcase==35||j[pion].pcase==46||j[pion].pcase==56||j[pion].pcase==75||j[pion].pcase==86||j[pion].pcase==98||j[pion].pcase==111){
         erreur=1;
     }
     if(j[pion].pcase==2){
-        if(verifoccupation(p,1)==1){
+        if(verfioccupation4(p,1)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=1;
             p[j[pion].pcase].occupation=1;
@@ -910,7 +910,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==4||j[pion].pcase==5){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verfioccupation4(p,j[pion].pcase-2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
@@ -921,7 +921,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==7||j[pion].pcase==8||j[pion].pcase==9){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verfioccupation4(p,j[pion].pcase-3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
@@ -932,7 +932,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase<19&&j[pion].pcase>14){
-        if(verifoccupation(p,j[pion].pcase-8)==1){
+        if(verfioccupation4(p,j[pion].pcase-8)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
             p[j[pion].pcase].occupation=1;
@@ -943,7 +943,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase<=35&&j[pion].pcase>=24){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verfioccupation4(p,j[pion].pcase-12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
@@ -954,7 +954,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=46){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verfioccupation4(p,j[pion].pcase-11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
@@ -965,7 +965,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=56){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verfioccupation4(p,j[pion].pcase-10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
@@ -976,7 +976,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verfioccupation4(p,j[pion].pcase-9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
@@ -987,7 +987,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=74){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verfioccupation4(p,j[pion].pcase-9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
@@ -998,7 +998,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=76&&j[pion].pcase<=85){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verfioccupation4(p,j[pion].pcase-10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
@@ -1009,7 +1009,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=97){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verfioccupation4(p,j[pion].pcase-11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
@@ -1020,7 +1020,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=99&&j[pion].pcase<=110){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verfioccupation4(p,j[pion].pcase-12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
@@ -1031,7 +1031,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=115){
-        if(verifoccupation(p,j[pion].pcase-8)==1){
+        if(verfioccupation4(p,j[pion].pcase-8)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
             p[j[pion].pcase].occupation=1;
@@ -1042,7 +1042,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=116&&j[pion].pcase<=118){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verfioccupation4(p,j[pion].pcase-3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
@@ -1053,7 +1053,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==119||j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verfioccupation4(p,j[pion].pcase-2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
@@ -1064,7 +1064,7 @@ int dephd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-1)==1){
+        if(verfioccupation4(p,j[pion].pcase-1)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-1;
             p[j[pion].pcase].occupation=1;
@@ -1076,10 +1076,10 @@ int dephd(cases4 p[122],pions j[41],int pion){
     }
     return 1;
 }
-int depbd(cases4 p[122],pions j[41],int pion){
+int depbd4(cases4 p[122],pions4 j[41],int pion){
     int erreur;
     if(j[pion].pcase==1){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verfioccupation4(p,j[pion].pcase+2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -1090,7 +1090,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verfioccupation4(p,j[pion].pcase+3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
@@ -1101,7 +1101,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verfioccupation4(p,j[pion].pcase+3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
@@ -1112,7 +1112,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
-        if(verifoccupation(p,j[pion].pcase+4)==1){
+        if(verfioccupation4(p,j[pion].pcase+4)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+4;
             p[j[pion].pcase].occupation=1;
@@ -1123,7 +1123,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verfioccupation4(p,j[pion].pcase+9)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
@@ -1134,7 +1134,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
-        if(verifoccupation(p,j[pion].pcase+13)==1){
+        if(verfioccupation4(p,j[pion].pcase+13)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+13;
             p[j[pion].pcase].occupation=1;
@@ -1145,7 +1145,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verfioccupation4(p,j[pion].pcase+12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
@@ -1156,7 +1156,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verfioccupation4(p,j[pion].pcase+11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
@@ -1167,7 +1167,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verfioccupation4(p,j[pion].pcase+10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
@@ -1178,7 +1178,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verfioccupation4(p,j[pion].pcase+10)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
@@ -1189,7 +1189,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verfioccupation4(p,j[pion].pcase+11)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
@@ -1200,7 +1200,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verfioccupation4(p,j[pion].pcase+12)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
@@ -1211,7 +1211,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
-        if(verifoccupation(p,j[pion].pcase+9)){
+        if(verfioccupation4(p,j[pion].pcase+9)){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
@@ -1222,7 +1222,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
-        if(verifoccupation(p,j[pion].pcase+4)==1){
+        if(verfioccupation4(p,j[pion].pcase+4)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+4;
             p[j[pion].pcase].occupation=1;
@@ -1233,7 +1233,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verfioccupation4(p,j[pion].pcase+3)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
@@ -1244,7 +1244,7 @@ int depbd(cases4 p[122],pions j[41],int pion){
         }
     }
     if(j[pion].pcase==119){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verfioccupation4(p,j[pion].pcase+2)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -1259,11 +1259,11 @@ int depbd(cases4 p[122],pions j[41],int pion){
     }
 }
 
-int deplacement(cases4 p[122],pions j[41],int dep,int pion){
+int deplacement4(cases4 p[122],pions4 j[41],int dep,int pion){
     int erreur=0;
     switch (dep)
     {
-    case 1://deplacement vers la gauche
+    case 1://deplacement4 vers la gauche
         if(p[j[pion].pcase-1].occupation==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-1;
@@ -1276,32 +1276,32 @@ int deplacement(cases4 p[122],pions j[41],int dep,int pion){
         }
         return erreur;
         break;
-    case 2 ://deplacement vers la droite
+    case 2 ://deplacement4 vers la droite
         if(p[j[pion].pcase+1].occupation==0){
         p[j[pion].pcase].occupation=0;
         j[pion].pcase=j[pion].pcase+1;
         p[j[pion].pcase].occupation=1;
     }
         break;
-    case 3 ://deplacement haut gauche
-        erreur=dephg(p,j,pion);
+    case 3 ://deplacement4 haut gauche
+        erreur=dephg4(p,j,pion);
         if(erreur==1){
 
         }
         break;
-    case 4 ://deplacement haut droite
-        erreur=dephd(p,j,pion);
+    case 4 ://deplacement4 haut droite
+        erreur=dephd4(p,j,pion);
         break;
-    case 5 ://deplacement bas gauche
-        erreur=depbg(p,j,pion);
+    case 5 ://deplacement4 bas gauche
+        erreur=depbg4(p,j,pion);
         break;
-    case 6 ://deplacement bas droite
-        erreur=depbd(p,j,pion);
+    case 6 ://deplacement4 bas droite
+        erreur=depbd4(p,j,pion);
         break;
     }
     return erreur;
 }
-void restaurationsauvegarde(pions j[41]){
+void restaurationsauvegarde4(pions4 j[41]){
     printf("Fonctionnalite en beta, quelques bug peuvent survenir.\n");
     char name[128];
     int count=0,i;
@@ -1316,7 +1316,7 @@ void restaurationsauvegarde(pions j[41]){
     }
 }
 
-void createsave(pions j[41]){
+void createsave4(pions4 j[41]){
     printf("Enregistrement en cours...\n");
     char name[128];
     int i;
@@ -1336,10 +1336,13 @@ void createsave(pions j[41]){
 }
 void Jeu4(){
     cases4 p[122];
-    pions j[41];
+    pions4 j[41];
     int erreur;
-    affichage(p,j);
-    occupation(p,j);
+    reset4(p,j);
+    saisiedefaut4(p,j,4);
+    saisiecases4(p,j);
+    affichage4(p,j);
+    occupation4(p,j);
     int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
@@ -1349,18 +1352,18 @@ void Jeu4(){
             fflush(stdin);
             scanf("%c",&rep);
         //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
-        temp=recherchepion(j,tour,rep);
-        printf("Quel deplacement souhaitez vous faire ?\n");
+        temp=recherchepion4(j,tour,rep);
+        printf("Quel deplacement4 souhaitez vous faire ?\n");
         printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
-            erreur=deplacement(p,j,dep,temp);
+            erreur=deplacement4(p,j,dep,temp);
             if(erreur==1){
-                printf("Veuillez entrer un deplacement possible\n");
+                printf("Veuillez entrer un deplacement4 possible\n");
             }
         }while(dep>7||erreur==1);
-        affichage(p,j);
-        if(tour<6){
+        affichage4(p,j);
+        if(tour<4){
             tour+=1;
         }
         else{

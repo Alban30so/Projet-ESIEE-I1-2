@@ -3,7 +3,6 @@
 #include "2j.c"
 #include "4j.c"
 #include "6j.c"
-
 void menu(){
     int nbj;
     printf("Bienvenue aux dames chinoises ! \n entrez le nombre de joueurs : \n");

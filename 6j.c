@@ -562,6 +562,14 @@ void affichage(cases p[122], pions j[61]){
     }
     printf("                   ---\n");
 }
+int recherchepion(pions j[21],int equipe, char numero){
+    int i;
+    for(i=1;i<21;i++){
+        if(j[i].equipe==equipe && j[i].nom==numero){
+            return i;
+        }
+    }
+}
 void occupation(cases p[122],pions j[61]){
     int i,k,temp=0;
     for(i=1;i<122;i++){
