@@ -36,7 +36,7 @@ void reset(cases p[122], pions j[61]){
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
-void saisiecases(cases p[122], pions j[61], int nbj){
+void saisiecases(cases p[122], pions j[61]){
     //cette fonciton saisie par défaut les cases pour un début de partie.
     int i;
     for(i=1;i<122;i++){
@@ -98,7 +98,7 @@ void base(cases p[122]){
         }
     }
 }
-void saisiedefaut(cases p[122],pions j[61],int nbj){
+void saisiedefaut(cases p[122],pions j[61]){
     base(p);
     j[1].pcase=1;
     j[2].pcase=2;
@@ -562,37 +562,9 @@ void affichage(cases p[122], pions j[61]){
     }
     printf("                   ---\n");
 }
-
-int menu(){
-    int nbj;
-    printf("Bienvenue aux dames chinoises ! \n entrez le nombre de joueurs : \n");
-    printf("1 joueur contre l'ordinateur : tapez 1\n");
-    printf("2 joueurs sur le m%cme ordinateur : tapez 2\n",136);
-    printf("4 joueurs sur le m%cme ordinateur : tapez 4\n",136);
-    printf("6 joueurs sur le m%cme ordinateur : tapez 6\n",136);
-    scanf("%i",&nbj);
-    switch (nbj)
-    {
-    case 1:
-        return 1;
-        break;
-    case 2: 
-        return 2;
-        break;
-    case 4:
-        return 4;
-        break;
-    case 6 : 
-        return 6;
-        break;
-    default:printf("Erreur de saisie, veuillez relancer.");
-        return 0;
-        break;
-    }
-}
-int recherchepion(pions j[61],int equipe, char numero){
+int recherchepion(pions j[21],int equipe, char numero){
     int i;
-    for(i=1;i<61;i++){
+    for(i=1;i<21;i++){
         if(j[i].equipe==equipe && j[i].nom==numero){
             return i;
         }
@@ -2155,10 +2127,19 @@ void createsave(pions j[61]){
     fclose(output); // close
 }
 
-void Jeu6(cases p[122], pions j[61]){
+void Jeu6(){
+    cases plateau[122];
+    pions joueurs[61];
+    reset(plateau,joueurs);
+    int i;
+    for(i=0;i<122;i++){
+        plateau[i].aff='.';
+    }
+    saisiecases(plateau,joueurs);
+    saisiedefaut(plateau,joueurs);
     int erreur;
-    affichage(p,j);
-    occupation(p,j);
+    affichage(plateau,joueurs);
+    occupation(plateau,joueurs);
     int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
@@ -2168,17 +2149,17 @@ void Jeu6(cases p[122], pions j[61]){
             fflush(stdin);
             scanf("%c",&rep);
         //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
-        temp=recherchepion(j,tour,rep);
+        temp=recherchepion(joueurs,tour,rep);
         printf("Quel deplacement souhaitez vous faire ?\n");
         printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
-            erreur=deplacement(p,j,dep,temp);
+            erreur=deplacement(plateau,joueurs,dep,temp);
             if(erreur==1){
-                erreur=saut(p,j,dep,temp);
+                erreur=saut(plateau,joueurs,dep,temp);
             }
         }while(dep>7||erreur==1);
-        affichage(p,j);
+        affichage(plateau,joueurs);
         if(tour<6){
             tour+=1;
         }
@@ -2186,19 +2167,4 @@ void Jeu6(cases p[122], pions j[61]){
             tour=1;
         }
     }
-}
-int main(){
-    cases plateau[122];
-    pions joueurs[61];
-    reset(plateau,joueurs);
-    int i;
-    for(i=0;i<122;i++){
-        plateau[i].aff='.';
-    }
-    int nbj=menu();
-    saisiecases(plateau,joueurs,nbj);
-    saisiedefaut(plateau,joueurs,6);
-    //test(plateau,joueurs);
-    //affichage(plateau,joueurs);
-    Jeu(plateau,joueurs);
 }
