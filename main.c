@@ -2155,7 +2155,7 @@ void createsave(pions j[61]){
     fclose(output); // close
 }
 
-void Jeu(cases p[122], pions j[61]){
+void Jeu6(cases p[122], pions j[61]){
     int erreur;
     affichage(p,j);
     occupation(p,j);
