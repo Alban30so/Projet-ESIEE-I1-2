@@ -2126,7 +2126,14 @@ void createsave(pions j[61]){
     //printf("fermer document\n ");
     fclose(output); // close
 }
-
+void wesh(int tour){
+    if(tour==1) printf("Au tour de l'%cquipe bleu \n",130);
+    if(tour==2) printf("Au tour de l'%cquipe rouge\n",130);
+    if(tour==3) printf("Au tour de l'%cquipe blanc\n",130);
+    if(tour==4) printf("Au tour de l'%cquipe cyan\n",130);
+    if(tour==5) printf("Au tour de l'%cquipe vert\n",130);
+    if(tour==6) printf("Au tour de l'%cquipe jaune\n",130);
+}
 void Jeu6(){
     cases plateau[122];
     pions joueurs[61];
@@ -2143,7 +2150,7 @@ void Jeu6(){
     int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
-        printf("Au tour de l'equipe %i !\n",tour);
+        wesh(tour);
         //do{
             printf("Veuillez Entrer la case :\n");
             fflush(stdin);
