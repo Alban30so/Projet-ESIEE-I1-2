@@ -1219,10 +1219,8 @@ int deplacement2(cases2 p[122],pions2 j[21],int dep,int pion){
             erreur=0;
         }
         else{
-            printf("Wait that's illegal\n");
             erreur=1;
         }
-        return erreur;
         break;
     case 2 ://deplacement vers la droite
         if(p[j[pion].pcase+1].occupation==0){
@@ -1233,9 +1231,6 @@ int deplacement2(cases2 p[122],pions2 j[21],int dep,int pion){
         break;
     case 3 ://deplacement haut gauche
         erreur=dephg2(p,j,pion);
-        if(erreur==1){
-
-        }
         break;
     case 4 ://deplacement haut droite
         erreur=dephd2(p,j,pion);
@@ -1960,17 +1955,17 @@ int saut2(cases2 p[122],pions2 j[61],int pion,int dep){
         return erreur;
         break;
     case 3://deplacement haut gauche
-        erreur=sauthg(p,j,pion);
+        erreur=sauthg2(p,j,pion);
         return erreur;
     break;
     case 4://deplacement haut droit
-        erreur=sauthd(p,j,pion);
+        erreur=sauthd2(p,j,pion);
         return erreur;
     case 5://deplacement bas gauche
-        erreur=sautbg(p,j,pion);
+        erreur=sautbg2(p,j,pion);
         return erreur;
     case 6 ://deplacement bas droite
-        erreur=sautbd(p,j,pion);
+        erreur=sautbd2(p,j,pion);
         return erreur;
     default:
         break;

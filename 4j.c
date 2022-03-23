@@ -1262,7 +1262,7 @@ int depbd4(cases4 p[122],pions4 j[41],int pion){
         return 1;
     }
 }
-int sauthg4(cases4 p[122],pions4 j[61],int pion){
+int sauthg4(cases4 p[122],pions4 j[41],int pion){
     int erreur,n;
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
         return 1;
@@ -1436,7 +1436,7 @@ int sauthg4(cases4 p[122],pions4 j[61],int pion){
         }
     }
 }
-int sauthd4(cases4 p[122],pions4 j[61],int pion){
+int sauthd4(cases4 p[122],pions4 j[41],int pion){
     int erreur;
     if(j[pion].pcase==1||j[pion].pcase==3||j[pion].pcase==6||j[pion].pcase==10||j[pion].pcase==11||j[pion].pcase==12||j[pion].pcase==13||j[pion].pcase==14||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==19||j[pion].pcase==35||j[pion].pcase==46||j[pion].pcase==56||j[pion].pcase==75||j[pion].pcase==86||j[pion].pcase==98||j[pion].pcase==111){
         erreur=1;
@@ -1608,7 +1608,7 @@ int sauthd4(cases4 p[122],pions4 j[61],int pion){
     }
     return 1;
 }
-int sautbd4(cases4 p[122],pions4 j[61],int pion){
+int sautbd4(cases4 p[122],pions4 j[41],int pion){
     if(j[pion].pcase==1){
         if(verifoccupation4(p,j[pion].pcase+5)==1){
             p[j[pion].pcase].occupation=0;
@@ -1767,7 +1767,7 @@ int sautbd4(cases4 p[122],pions4 j[61],int pion){
         return 1;
     }
 }
-int sautbg4(cases4 p[122],pions4 j[61],int pion){
+int sautbg4(cases4 p[122],pions4 j[41],int pion){
     int erreur;
     if(j[pion].pcase==1){
         if(verifoccupation4(p,j[pion].pcase+3)==1){
@@ -1938,7 +1938,7 @@ int sautbg4(cases4 p[122],pions4 j[61],int pion){
         return 1;
     }
 }
-int saut4(cases4 p[122],pions4 j[61],int pion,int dep){
+int saut4(cases4 p[122],pions4 j[41],int pion,int dep){
     int erreur;
     switch (dep)
     {
@@ -1995,23 +1995,21 @@ int deplacement4(cases4 p[122],pions4 j[41],int dep,int pion,int tempo[1]){
             erreur=0;
         }
         else{
-            printf("Wait that's illegal\n");
             erreur=1;
         }
-        return erreur;
         break;
     case 2 ://deplacement4 vers la droite
         if(p[j[pion].pcase+1].occupation==0){
-        p[j[pion].pcase].occupation=0;
-        j[pion].pcase=j[pion].pcase+1;
-        p[j[pion].pcase].occupation=1;
-    }
+            p[j[pion].pcase].occupation=0;
+            j[pion].pcase=j[pion].pcase+1;
+            p[j[pion].pcase].occupation=1;
+        }
+        else{
+            erreur=1;
+        }
         break;
     case 3 ://deplacement4 haut gauche
         erreur=dephg4(p,j,pion);
-        if(erreur==1){
-
-        }
         break;
     case 4 ://deplacement4 haut droite
         erreur=dephd4(p,j,pion);
@@ -2122,7 +2120,7 @@ void Jeu4(){
             }
         }while(dep>7||erreur==1);
         temp=tempo[0];
-        run=veriffin(p,j,j[temp].pcase,temp,tour);
+        //run=veriffin(p,j,j[temp].pcase,temp,tour);
         affichage4(p,j);
         if(tour<4){
             tour+=1;
