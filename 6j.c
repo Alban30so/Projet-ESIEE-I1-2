@@ -1324,6 +1324,16 @@ int depbd(cases p[122],pions j[61],int pion){
         return 1;
     }
 }
+int enchainement(cases p[122],pions j[61],int pion){
+affichage(p,j);
+int rep,error;
+printf("Entrez 1 pour sauter vers la gauche\nEntrez 2 pour sauter vers la droite\nEntrez 3 pour sauter en haut %c gauche\nEntrez 4 pour sauter en haut %c droite\nEntrez 5 pour sauter en bas %c gauche\nEntrez 6 pour sauter en bas %c droite\nEntrez 7 pour arr%cter ton tour\n",133,133,133,133,136);
+printf("Attention! Si tu fais un d%cplacement qui n'est pas possible, ton tour sera fini.\n",130);
+fflush(stdin);
+scanf("%c",&rep);
+error=saut(p,j,pion,rep);
+return error;
+}
 int sauthg(cases p[122],pions j[61],int pion){
     int erreur,n;
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
@@ -2035,12 +2045,18 @@ int saut(cases p[122],pions j[61],int pion,int dep){
     case 4://deplacement haut droit
         erreur=sauthd(p,j,pion);
         return erreur;
+    break;
     case 5://deplacement bas gauche
         erreur=sautbg(p,j,pion);
         return erreur;
+    break;
     case 6 ://deplacement bas droite
         erreur=sautbd(p,j,pion);
         return erreur;
+    break;
+    case 7:
+    printf("tour terminé\n");
+    erreur=1;
     default:
         break;
     }
@@ -2087,8 +2103,12 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         }
         if(erreur==1){
             erreur=saut(p,j,pion,dep);
+            erreur+=1;
         }
-        if(erreur==1){
+        while(erreur==1){
+            erreur=enchainement(p,j,pion);
+        }
+        if(erreur==2){
             printf("Erreur, deplacement impossible\n");
         }
     return erreur;
@@ -2157,14 +2177,12 @@ void Jeu6(){
             scanf("%c",&rep);
         //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
         temp=recherchepion(joueurs,tour,rep);
-        printf("Quel deplacement souhaitez vous faire ?\n");
-        printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
+        printf("Quel d%cplacement souhaitez vous faire ?\n",130);
+        printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter %c gauche\nEntrez 4 pour monter %c droite\nEntrez 5 pour descendre %c gauche\nEntrez 6 pour descendre %c droite\n",133,133,133,133);
         do{
             scanf("%i",&dep);
             erreur=deplacement(plateau,joueurs,dep,temp);
-            if(erreur==1){
-                erreur=saut(plateau,joueurs,dep,temp);
-            }
+        
         }while(dep>7||erreur==1);
         affichage(plateau,joueurs);
         if(tour<6){

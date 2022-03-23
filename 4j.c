@@ -2110,7 +2110,7 @@ void Jeu4(){
             scanf("%c",&rep);
         //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
         temp=recherchepion4(j,tour,rep);
-        printf("Quel deplacement4 souhaitez vous faire ?\n");
+        printf("Quel deplacement souhaitez vous faire ?\n");
         printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
@@ -2120,7 +2120,7 @@ void Jeu4(){
             }
         }while(dep>7||erreur==1);
         temp=tempo[0];
-        //run=veriffin(p,j,j[temp].pcase,temp,tour);
+        run=veriffin(p,j,j[temp].pcase,temp,tour);
         affichage4(p,j);
         if(tour<4){
             tour+=1;
@@ -2129,4 +2129,5 @@ void Jeu4(){
             tour=1;
         }
     }
+    printf("jeu fini \n");
 }
