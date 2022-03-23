@@ -14,6 +14,7 @@ typedef struct pions
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
     char nom;//
+    int win;
 }pions;
 void attpion(cases p[122], pions j[61]);
 int sauthd(cases p[122],pions j[61],int pion);
@@ -33,6 +34,7 @@ void reset(cases p[122], pions j[61]){
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
+        j[i].win=0;
     }
     printf("Toutes les cases ont ete reinitialisee corectement !\n");
 }
@@ -2046,7 +2048,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
     }
 }
 
-int deplacement(cases p[122],pions j[61],int dep,int pion){
+int deplacement(cases p[122],pions j[61],int dep,int pion,int tempo[1]){
     int erreur=0;
     int ligne=0;
         switch (dep)
@@ -2091,6 +2093,7 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         if(erreur==1){
             printf("Erreur, deplacement impossible\n");
         }
+    tempo[0]=pion;
     return erreur;
 }
 void restaurationsauvegarde(pions j[61]){
@@ -2134,10 +2137,30 @@ void appelequipe(int tour){
     if(tour==5) printf("Au tour de l'%cquipe vert\n",130);
     if(tour==6) printf("Au tour de l'%cquipe jaune\n",130);
 }
-
+int veriffin(cases p[122],pions j[41],int casep,int npion,int tour){
+    int i,temp=0;
+    if(p[casep].equipe!=0){
+        if(p[casep].equipe==j[npion].equipe){
+            return 1;
+        }
+        else{
+            j[npion].win=1;
+            return 1;
+        }
+    }
+    for(i=1;i<41;i++){
+        if(j[i].equipe==tour){
+            if(j[i].win==1){
+                temp+=1;
+            }
+        }
+    }
+    if(temp==10) return 0;
+}
 void Jeu6(){
     cases plateau[122];
     pions joueurs[61];
+    int tempo[1];
     reset(plateau,joueurs);
     int i;
     for(i=0;i<122;i++){
@@ -2162,12 +2185,17 @@ void Jeu6(){
         printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
-            erreur=deplacement(plateau,joueurs,dep,temp);
+            erreur=deplacement(plateau,joueurs,dep,temp,tempo);
             if(erreur==1){
                 erreur=saut(plateau,joueurs,dep,temp);
             }
         }while(dep>7||erreur==1);
+        printf("Coucou\n");
         affichage(plateau,joueurs);
+        printf("Coucou2\n");
+        temp=tempo[0];
+        run=veriffin(plateau,joueurs,joueurs[temp].pcase,temp,tour);
+        printf("Coucou3\n");
         if(tour<6){
             tour+=1;
         }
