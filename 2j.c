@@ -1247,6 +1247,12 @@ int deplacement2(cases2 p[122],pions2 j[21],int dep,int pion){
         erreur=depbd2(p,j,pion);
         break;
     }
+    if(erreur==1){
+        erreur=saut2(p,j,pion,dep);
+    }
+    if(erreur==1){
+        printf("connerie.. \n");
+    }
     return erreur;
 }
 int sauthg2(cases2 p[122],pions2 j[61],int pion){
@@ -1925,7 +1931,7 @@ int sautbg2(cases2 p[122],pions2 j[61],int pion){
         return 1;
     }
 }
-int sau2t(cases2 p[122],pions2 j[61],int pion,int dep){
+int saut2(cases2 p[122],pions2 j[61],int pion,int dep){
     int erreur;
     switch (dep)
     {
