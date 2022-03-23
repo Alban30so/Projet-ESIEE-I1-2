@@ -1334,6 +1334,12 @@ void createsave4(pions4 j[41]){
     //printf("fermer document\n ");
     fclose(output); // close
 }
+void appelequipe4(int tour){
+    if(tour==1) printf("Au tour de l'%cquipe bleu \n",130);
+    if(tour==2) printf("Au tour de l'%cquipe rouge\n",130);
+    if(tour==3) printf("Au tour de l'%cquipe blanc\n",130);
+    if(tour==4) printf("Au tour de l'%cquipe jaune\n",130);
+}
 void Jeu4(){
     cases4 p[122];
     pions4 j[41];
@@ -1346,7 +1352,7 @@ void Jeu4(){
     int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
-        printf("Au tour de l'equipe %i !\n",tour);
+        appelequipe4(tour);
         //do{
             printf("Veuillez Entrer la case :\n");
             fflush(stdin);
