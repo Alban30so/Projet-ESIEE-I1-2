@@ -14,6 +14,7 @@ typedef struct pions4
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
     char nom;//
+    int win;
 }pions4;
 void attpion4(cases4 p[122], pions4 j[41]);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
@@ -28,6 +29,7 @@ void reset4(cases4 p[122], pions4 j[41]){
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
+        j[i].win=0;
     }
     //printf("Toutes les cases4 ont ete reinitialisee corectement !\n");
 }
@@ -49,27 +51,27 @@ void base4(cases4 p[122]){
         }
         //Equipe jaune
         if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=2;
+            p[i].equipe=4;
         }
         //Equipe rouge
         if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-            p[i].equipe=3;
+            p[i].equipe=2;
         }
         else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-            p[i].equipe=3;
+            p[i].equipe=2;
         }
         else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-            p[i].equipe=3;
+            p[i].equipe=2;
         }
         //Equipe verte
         if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-            p[i].equipe=4;
+            p[i].equipe=3;
         }
         else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-            p[i].equipe=4;
+            p[i].equipe=3;
         }
         else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-            p[i].equipe=4;
+            p[i].equipe=3;
         }
     }
 }
@@ -1258,8 +1260,7 @@ int depbd4(cases4 p[122],pions4 j[41],int pion){
         return 1;
     }
 }
-
-int deplacement4(cases4 p[122],pions4 j[41],int dep,int pion){
+int deplacement4(cases4 p[122],pions4 j[41],int dep,int pion,int tempo[1]){
     int erreur=0;
     switch (dep)
     {
@@ -1299,6 +1300,7 @@ int deplacement4(cases4 p[122],pions4 j[41],int dep,int pion){
         erreur=depbd4(p,j,pion);
         break;
     }
+    tempo[0]=pion;
     return erreur;
 }
 void restaurationsauvegarde4(pions4 j[41]){
@@ -1341,9 +1343,30 @@ void wesh4(int tour){
     if(tour==4) printf("Au tour de l'%cquipe jaune\n",130);
 
 }
+int veriffin(cases4 p[122],pions4 j[41],int casep,int npion,int tour){
+    int i,temp=0;
+    if(p[casep].equipe!=0){
+        if(p[casep].equipe==j[npion].equipe){
+            return 1;
+        }
+        else{
+            j[npion].win=1;
+            return 1;
+        }
+    }
+    for(i=1;i<41;i++){
+        if(j[i].equipe==tour){
+            if(j[i].win==1){
+                temp+=1;
+            }
+        }
+    }
+    if(temp==10) return 0;
+}
 void Jeu4(){
     cases4 p[122];
     pions4 j[41];
+    int tempo[1];
     int erreur;
     reset4(p,j);
     saisiedefaut4(p,j,4);
@@ -1364,11 +1387,13 @@ void Jeu4(){
         printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
         do{
             scanf("%i",&dep);
-            erreur=deplacement4(p,j,dep,temp);
+            erreur=deplacement4(p,j,dep,temp,tempo);
             if(erreur==1){
                 printf("Veuillez entrer un deplacement4 possible\n");
             }
         }while(dep>7||erreur==1);
+        temp=tempo[0];
+        run=veriffin(p,j,j[temp].pcase,temp,tour);
         affichage4(p,j);
         if(tour<4){
             tour+=1;
