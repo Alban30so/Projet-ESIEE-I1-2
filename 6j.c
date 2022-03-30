@@ -14,6 +14,7 @@ typedef struct pions
     int pcase;//case occupée par le pion
     int equipe;//equipe de ce pion
     char nom;//
+    int win;
 }pions;
 void attpion(cases p[122], pions j[61]);
 int sauthd(cases p[122],pions j[61],int pion);
@@ -22,19 +23,25 @@ int sautbg(cases p[122],pions j[61],int pion);
 int sautbd(cases p[122],pions j[61],int pion);
 int saut(cases p[122],pions j[61],int pion,int dep);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
-void reset(cases p[122], pions j[61]){
+void resetplateau(cases p[122]){
     int i;
     for(i=0;i<122;i++){
         p[i].nbcase=0;
         p[i].equipe=0;
         p[i].occupation=0;
         p[i].aff='.';
+    }
+}
+void reset(pions j[61]){
+    int i;
+    for(i=0;i<61;i++){
         j[i].nbpion=i;
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
+        j[i].win=0;
     }
-    printf("Toutes les cases ont ete reinitialisee corectement !\n");
+    //printf("Toutes les cases4 ont ete reinitialisee corectement !\n");
 }
 void saisiecases(cases p[122], pions j[61]){
     //cette fonciton saisie par défaut les cases pour un début de partie.
@@ -47,55 +54,53 @@ void saisiecases(cases p[122], pions j[61]){
 }
 void base(cases p[122]){
     int i;
-    for(i=0;i<122;i++){
-        //Deux joueurs ou plus : Equipe Bleu et Jaune
-        if(p[i].nbcase<=10&&p[i].nbcase>=0){
-            p[i].equipe=1;//Equipe Bleu
-        }
-        //Equipe jaune
-        if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=6;
-        }
-        //Equipe blanche
-        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-            p[i].equipe=3;
-        }
-        //Equipe noire
-        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-            p[i].equipe=4;
-        }
-        //Equipe rouge
-        if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-            p[i].equipe=2;
-        }
-        //Equipe verte
-        if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-            p[i].equipe=5;
-        }
+    //Equipe Bleu
+    for(i=1;i<10;i++){
+        p[i].equipe=1;
+    }
+    //Equipe Rouge
+    for(i=11;i<14;i++){
+        p[i].equipe=2;
+    }
+    p[24].equipe=2;
+    p[25].equipe=2;
+    p[26].equipe=2;
+    p[36].equipe=2;
+    p[37].equipe=2;
+    p[47].equipe=2;
+    //Equipe Blanche
+    for(i=20;i<23;i++){
+        p[i].equipe=3;
+    }
+    p[33].equipe=3;
+    p[34].equipe=3;
+    p[35].equipe=3;
+    p[45].equipe=3;
+    p[46].equipe=3;
+    p[56].equipe=3;
+    //Equipe Cyan
+    for(i=99;i<102;i++){
+        p[i].equipe=4;
+    }
+    p[66].equipe=4;
+    p[76].equipe=4;
+    p[77].equipe=4;
+    p[87].equipe=4;
+    p[88].equipe=4;
+    p[89].equipe=4;
+    //Equipe Verte
+    for(i=108;i<111;i++){
+        p[i].equipe=5;
+    }
+    p[75].equipe=5;
+    p[85].equipe=5;
+    p[86].equipe=5;
+    p[96].equipe=5;
+    p[97].equipe=5;
+    p[98].equipe=5;
+    //Equipe jaune
+    for(i=112;i<121;i++){
+        p[i].equipe=6;
     }
 }
 void saisiedefaut(cases p[122],pions j[61]){
@@ -214,8 +219,13 @@ void attpion(cases p[122], pions j[61]){
                 c6+=1;
                 temp=2;
             }
+            else{
+                printf("");
+            }
         }
     }
+    printf("\n");
+    base(p);
 }
 void test(cases p[122], pions j[61]){
     int i;
@@ -2134,14 +2144,38 @@ void wesh(int tour){
     if(tour==5) printf("Au tour de l'%cquipe vert\n",130);
     if(tour==6) printf("Au tour de l'%cquipe jaune\n",130);
 }
+void couleurequipe(int equipe){
+    if(equipe==1) printf("l'%cquipe bleu \n",130);
+    if(equipe==2) printf("l'%cquipe rouge\n",130);
+    if(equipe==3) printf("l'%cquipe blanc\n",130);
+    if(equipe==4) printf("l'%cquipe cyan\n",130);
+    if(equipe==5) printf("l'%cquipe vert\n",130);
+    if(equipe==6) printf("l'%cquipe jaune\n",130);
+}
+int finjeu(cases p[122],pions j[61],int nbpion){
+    if(p[j[nbpion].pcase].equipe!=0&&p[j[nbpion].pcase].equipe!=j[nbpion].equipe){
+        j[nbpion].win=1;
+        printf("Un joueur est entre dans la base de ");
+        couleurequipe(p[j[nbpion].pcase].equipe);
+    }
+    else{
+        j[nbpion].win=0;
+    }
+    int i,compt=0;
+    for(i=1;i<61;i++){
+        if(j[i].equipe==j[nbpion].equipe){
+            if(j[i].win==1){
+                compt+=1;
+            }
+        }
+    }
+    if(compt==10)return 0;
+}
 void Jeu6(){
     cases plateau[122];
     pions joueurs[61];
-    reset(plateau,joueurs);
-    int i;
-    for(i=0;i<122;i++){
-        plateau[i].aff='.';
-    }
+    reset(joueurs);
+    resetplateau(plateau);
     saisiecases(plateau,joueurs);
     saisiedefaut(plateau,joueurs);
     int erreur;
@@ -2167,6 +2201,7 @@ void Jeu6(){
             }
         }while(dep>7||erreur==1);
         affichage(plateau,joueurs);
+        //run=finjeu(plateau,joueurs,temp);
         if(tour<6){
             tour+=1;
         }
