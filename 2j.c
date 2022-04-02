@@ -20,6 +20,7 @@ int sauthg2(cases2 p[122], pions2 j[21],int pion);
 int sauthd2(cases2 p[122], pions2 j[21],int pion);
 int sautbg2(cases2 p[122], pions2 j[21],int pion);
 int sautbd2(cases2 p[122], pions2 j[21],int pion);
+int saut2(cases2 p[122],pions2 j[61],int pion,int dep);
 
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
 void reset2(cases2 p[122], pions2 j[21]){

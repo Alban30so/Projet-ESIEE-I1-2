@@ -261,46 +261,47 @@ int identification(pions j[61], cases p[122], int i){
     for(z=1;z<61;z++){
         if(p[i].nbcase==j[z].pcase){
             return z;
-            printf("Je suis rentre\n");
         }
     }
+    return 255;
 }
 void testcolor(pions j[61],int i, cases p[122]){
     int z, temp=0;
     int couleur;
     z=identification(j,p,i);
-    if(j[z].equipe==1){
+    if(z==255){
+        Color(15,0);
+        printf(". ");
+        Color(15,0);
+        temp=3;
+    }
+    if(j[z].equipe==1&&temp==0){
         couleur=1;
         temp=1;
     }
-    if(j[z].equipe==2){
+    if(j[z].equipe==2&&temp==0){
         couleur=4;
         temp=1;
     }
-    if(j[z].equipe==3){
+    if(j[z].equipe==3&&temp==0){
         couleur=15;
         temp=1;
     }
-    if(j[z].equipe==4){
+    if(j[z].equipe==4&&temp==0){
         couleur=11;
         temp=1;
     }
-    if(j[z].equipe==5){
+    if(j[z].equipe==5&&temp==0){
         couleur=2;
         temp=1;
     }
-    if(j[z].equipe==6){
+    if(j[z].equipe==6&&temp==0){
         couleur=14;
         temp=1;
     }
     if(temp==1){
-        Color(couleur,0);
+        Color(couleur,0&&temp==0);
         printf("%c ",j[z].nom);
-        Color(15,0);
-    }
-    else{
-        Color(15,0);
-        printf(". ");
         Color(15,0);
     }
 }
@@ -573,9 +574,9 @@ void affichage(cases p[122], pions j[61]){
     }
     printf("                   ---\n");
 }
-int recherchepion(pions j[21],int equipe, char numero){
+int recherchepion(pions j[61],int equipe, char numero){
     int i;
-    for(i=1;i<21;i++){
+    for(i=1;i<61;i++){
         if(j[i].equipe==equipe && j[i].nom==numero){
             return i;
         }
@@ -1341,7 +1342,21 @@ int enchainement(cases p[122],pions j[61],int pion){
     printf("Entrez 1 pour sauter vers la gauche\nEntrez 2 pour sauter vers la droite\nEntrez 3 pour sauter en haut %c gauche\nEntrez 4 pour sauter en haut %c droite\nEntrez 5 pour sauter en bas %c gauche\nEntrez 6 pour sauter en bas %c droite\nEntrez 7 pour arr%cter ton tour\n",133,133,133,133,136);
     printf("Attention! Si tu fais un d%cplacement qui n'est pas possible, ton tour sera fini.\n",130);
     scanf("%i",&rep);
-    error=saut(p,j,pion,rep);
+    switch (rep)
+    {
+    case 1:
+        if(verifoccupation(p,j[pion].pcase-1)==0){
+            error=saut(p,j,pion,rep);
+        }
+        else{
+            error=1;
+        }
+        break;
+    case 2:
+    
+    default:
+        break;
+    }
     return error;
 }
 int sauthg(cases p[122],pions j[61],int pion){
@@ -2025,17 +2040,20 @@ int saut(cases p[122],pions j[61],int pion,int dep){
     switch (dep)
     {
     case 1://saut vers la gauche
-        printf("case 1 \n");
-        printf("%i\n",p[j[pion].pcase-2].occupation);
-        printf("%i \n",j[pion].pcase);
+       // printf("case 1 \n");
+        //printf("%i\n",p[j[pion].pcase-2].occupation);
+        //printf("%i \n",j[pion].pcase);
         if(p[j[pion].pcase-2].occupation==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             erreur=0;
+            affichage(p,j);
+            printf("saluuuuut\n");
         }
         else{
             erreur=1;
+            printf("occupé\n");
         }
         return erreur;
         break;
@@ -2047,6 +2065,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
             erreur=0;
         }
         else{
+            printf("occupé\n");
             erreur=1;
         }
         return erreur;
@@ -2086,9 +2105,11 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
                 j[pion].pcase=j[pion].pcase-1;
                 p[j[pion].pcase].occupation=1;
                 erreur=0;
+                printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
             }
             else{
                 erreur=1;
+                printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
             }
             break;
         case 2 ://deplacement vers la droite
@@ -2096,7 +2117,8 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
             p[j[pion].pcase].occupation=1;
-        }
+            printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation); 
+            }
         else{
             erreur=1;
         }
@@ -2116,12 +2138,11 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         }
         if(erreur==1){
             erreur=saut(p,j,pion,dep);
-            printf("erreur= %i \n",erreur);
             erreur+=1;
         }
         while(erreur==1){
-            erreur=enchainement(p,j,pion);
-            printf("wesh\n");
+            erreur=enchainement(p,j,dep);
+            erreur+=1;
         }
         if(erreur==2){
             printf("Erreur, deplacement impossible\n");
