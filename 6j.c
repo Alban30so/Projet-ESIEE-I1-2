@@ -2040,7 +2040,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
     switch (dep)
     {
     case 1://saut vers la gauche
-       // printf("case 1 \n");
+        //printf("case 1 \n");
         //printf("%i\n",p[j[pion].pcase-2].occupation);
         //printf("%i \n",j[pion].pcase);
         if(p[j[pion].pcase-2].occupation==0){
@@ -2048,8 +2048,8 @@ int saut(cases p[122],pions j[61],int pion,int dep){
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             erreur=0;
-            affichage(p,j);
-            printf("saluuuuut\n");
+            //affichage(p,j);
+            //printf("saluuuuut\n");
         }
         else{
             erreur=1;
@@ -2139,11 +2139,11 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         if(erreur==1){
             erreur=saut(p,j,pion,dep);
             erreur+=1;
-        }
+        }/*
         while(erreur==1){
             erreur=enchainement(p,j,dep);
             erreur+=1;
-        }
+        }*/
         if(erreur==2){
             printf("Erreur, deplacement impossible\n");
         }
@@ -2219,14 +2219,14 @@ void Jeu6(){
         do{
             scanf("%i",&dep);
             erreur=deplacement(plateau,joueurs,dep,temp);
-            printf("dans boucle do while \n");
+            //printf("dans boucle do while \n");
         }while(dep>7||erreur==1);
         affichage(plateau,joueurs);
-        test(plateau,joueurs);
+        /*test(plateau,joueurs);
         for(i=0;i<122;i++){
             printf("num case:%i  |occupation : %i\n",plateau[i].nbcase,plateau[i].occupation);
         }
-        affichage(plateau,joueurs);
+        affichage(plateau,joueurs);*/
         if(tour<6){
             tour+=1;
         }
