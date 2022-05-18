@@ -1674,29 +1674,6 @@ int depbd(cases p[122],pions j[61],int pion,int exesaut){
         return 1;
     }
 }
-int enchainement(cases p[122],pions j[61],int pion){
-    affichage(p,j);
-    int rep,error;
-    printf("Entrez 1 pour sauter vers la gauche\nEntrez 2 pour sauter vers la droite\nEntrez 3 pour sauter en haut %c gauche\nEntrez 4 pour sauter en haut %c droite\nEntrez 5 pour sauter en bas %c gauche\nEntrez 6 pour sauter en bas %c droite\nEntrez 7 pour arr%cter ton tour\n",133,133,133,133,136);
-    printf("Attention! Si tu fais un d%cplacement qui n'est pas possible, ton tour sera fini.\n",130);
-    scanf("%i",&rep);
-    switch (rep)
-    {
-    case 1:
-        if(verifoccupation(p,j[pion].pcase-1)==0){
-            error=saut(p,j,pion,rep);
-        }
-        else{
-            error=1;
-        }
-        break;
-    case 2:
-    
-    default:
-        break;
-    }
-    return error;
-}
 int sauthg(cases p[122],pions j[61],int pion){
     int erreur,n;
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
@@ -2373,6 +2350,100 @@ int sautbg(cases p[122],pions j[61],int pion){
         return 1;
     }
 }
+int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
+    int erreur; 
+    switch (dep)
+        {
+        case 1://deplacement vers la gauche
+            if(p[j[pion].pcase-1].occupation==0){
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
+            }
+            else{
+                if(p[j[pion].pcase-2].occupation==0){
+                    p[j[pion].pcase].occupation=0;
+                    j[pion].pcase=j[pion].pcase-2;
+                    p[j[pion].pcase].occupation=1;
+                    return 1;
+                }
+                else{
+                    printf("Erreur deplacmenet impossible\n");
+                    return 0;
+                }
+            }
+            break;
+        case 2 ://deplacement vers la droite
+            if(p[j[pion].pcase+1].occupation==0){
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+            //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation); 
+            }
+            else{
+                if(p[j[pion].pcase+2].occupation==0){
+                    p[j[pion].pcase].occupation=0;
+                    j[pion].pcase=j[pion].pcase-2;
+                    p[j[pion].pcase].occupation=1;
+                    return 1;
+                }
+                else{
+                    printf("erreur, deplacement impossible\n");
+                    return 0;
+                }
+            }
+            break;
+        case 3 ://deplacement haut gauche
+            erreur=dephg(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=depbd(p,j,pion,exesaut);
+                printf("Deplacement impossibe, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            } 
+            break;
+        case 4 ://deplacement haut droite
+            erreur=dephd(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=depbg(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 5 ://deplacement bas gauche
+            erreur=depbg(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=dephd(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 6 ://deplacement bas droite
+            erreur=depbd(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=dephg(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 7 ://stop
+            return 0;
+        }
+}
 int saut(cases p[122],pions j[61],int pion,int dep){
     int erreur;
     switch (dep)
@@ -2434,8 +2505,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
 
 int deplacement(cases p[122],pions j[61],int dep,int pion){
     int erreur=0;
-    int ligne=0,nbsaut=0,exesaut=0;
-    do{
+    int ligne=0,nbsaut=0,exesaut=0,sot=0;
         printf("exesaut=%i\n",exesaut);
         switch (dep)
         {
@@ -2505,10 +2575,13 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         }
         affichage(p,j);
         if(exesaut==1){
-            printf("Entrez le saut que vous souhaitez realiser");
-            scanf("%i",&dep);
+            do{
+                printf("Entrez le saut que vous souhaitez realiser\n entrez 7 pour arreter votre tour\n");
+                scanf("%i",&dep);
+                sot=enchainement(p,j,pion,dep,exesaut);
+                affichage(p,j);
+            }while(sot!=0);
         }
-    }while(exesaut==1);
     return erreur;
 }
 void restaurationsauvegarde(pions j[61]){
