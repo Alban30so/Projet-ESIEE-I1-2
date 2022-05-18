@@ -2424,9 +2424,9 @@ int saut(cases p[122],pions j[61],int pion,int dep){
         erreur=sautbd(p,j,pion);
         return erreur;
     break;
-    case 7:
-    printf("tour termin%c \n",130);
-    erreur=1;
+    case 7://Passe le tour
+        printf("tour termin%c \n",130);
+        erreur=1;
     default:
         break;
     }
@@ -2587,7 +2587,7 @@ void Jeu6(){
         /*test(plateau,joueurs);
         for(i=0;i<122;i++){
             printf("num case:%i  |occupation : %i\n",plateau[i].nbcase,plateau[i].occupation);
-        }
+        
         affichage(plateau,joueurs);*/
         if(tour<6){
             tour+=1;
