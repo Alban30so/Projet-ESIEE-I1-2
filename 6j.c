@@ -2350,6 +2350,60 @@ int sautbg(cases p[122],pions j[61],int pion){
         return 1;
     }
 }
+int antisaut(cases p[122],pions j[61],int pion,int dep){
+    int interdit[17];
+    interdit[0]=1;
+    interdit[1]=2;
+    interdit[2]=4;
+    interdit[3]=7;
+    interdit[4]=11;
+    interdit[5]=24;
+    interdit[6]=36;
+    interdit[7]=47;
+    interdit[8]=57;
+    interdit[9]=66;
+    interdit[10]=76;
+    interdit[11]=87;
+    interdit[12]=99;
+    interdit[13]=112;
+    interdit[14]=116;
+    interdit[15]=119;
+    interdit[16]=121;
+    int interditd[17];
+    interdit[0]=3;
+    interdit[1]=6;
+    interdit[2]=10;
+    interdit[3]=23;
+    interdit[4]=35;
+    interdit[5]=46;
+    interdit[6]=56;
+    interdit[7]=65;
+    interdit[8]=75;
+    interdit[9]=86;
+    interdit[10]=98;
+    interdit[11]=111;
+    interdit[12]=115;
+    interdit[13]=118;
+    interdit[14]=120;
+    interdit[15]=121;
+    interdit[16]=1;
+    if(dep==1){
+        for(int i=0;i<31;i++){
+            if(pion==interdit[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    if(dep==2){
+        for(int i=0;i<31;i++){
+            if(pion==interdit[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+}
 int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
     int erreur; 
     switch (dep)
@@ -2362,7 +2416,7 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
                 //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
             }
             else{
-                if(p[j[pion].pcase-2].occupation==0){
+                if(p[j[pion].pcase-2].occupation==0&&antisaut(p,j,pion,dep)==1){
                     p[j[pion].pcase].occupation=0;
                     j[pion].pcase=j[pion].pcase-2;
                     p[j[pion].pcase].occupation=1;
@@ -2375,7 +2429,7 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
             }
             break;
         case 2 ://deplacement vers la droite
-            if(p[j[pion].pcase+1].occupation==0){
+            if(p[j[pion].pcase+1].occupation==0&&antisaut(p,j,pion,dep)==1){
                 printf("Deplacement impossible, ceci n'est pas un saut\n");
             //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation); 
             }
@@ -2452,7 +2506,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
         //printf("case 1 \n");
         //printf("%i\n",p[j[pion].pcase-2].occupation);
         //printf("%i \n",j[pion].pcase);
-        if(p[j[pion].pcase-2].occupation==0){
+        if(p[j[pion].pcase-2].occupation==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
@@ -2467,7 +2521,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
         return erreur;
         break;
     case 2://saut vers la droite
-        if(p[j[pion].pcase+2].occupation==0){
+        if(p[j[pion].pcase+2].occupation==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -2510,7 +2564,7 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         switch (dep)
         {
         case 1://deplacement vers la gauche
-            if(p[j[pion].pcase-1].occupation==0&&exesaut==0){
+            if(p[j[pion].pcase-1].occupation==0&&exesaut==0&&antisaut(p,j,pion,dep)==1){
                 p[j[pion].pcase].occupation=0;
                 j[pion].pcase=j[pion].pcase-1;
                 p[j[pion].pcase].occupation=1;
@@ -2528,7 +2582,7 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
             }
             break;
         case 2 ://deplacement vers la droite
-            if(p[j[pion].pcase+1].occupation==0&&exesaut==0){
+            if(p[j[pion].pcase+1].occupation==0&&exesaut==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
             p[j[pion].pcase].occupation=1;
