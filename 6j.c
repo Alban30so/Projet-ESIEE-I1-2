@@ -2679,12 +2679,35 @@ void wesh(int tour){
     if(tour==5) printf("Au tour de l'%cquipe vert\n",130);
     if(tour==6) printf("Au tour de l'%cquipe jaune\n",130);
 }
+int testwin(cases p[122],pions j[61],int pion,int equipe){
+    int i,temp;
+    if(j[pion].equipe!=p[j[pion].pcase].equipe){
+        if(p[j[pion].pcase].equipe==0){
+            temp=0;
+        }
+        else{
+            j[pion].win=1;
+            temp=1;
+        }
+    }
+    else{
+        temp=0;
+    }
+    if(temp==1){
+        temp=0;
+        for(i=0;i<61;i++){
+            if(j[i].equipe==equipe&&j[i].win==1){
+                temp+=1;
+            }
+        }
+    }
+}
 void Jeu6(){
     cases plateau[122];
     pions joueurs[61];
     reset(joueurs);
     resetplateau(plateau);
-    int i;
+    int i,fin;
     for(i=0;i<122;i++){
         plateau[i].aff='.';
     }
@@ -2710,12 +2733,8 @@ void Jeu6(){
             erreur=deplacement(plateau,joueurs,dep,temp);
             //printf("dans boucle do while \n");
         }while(dep>7||erreur==1);
+        fin=testwin(plateau,joueurs,temp,tour);
         affichage(plateau,joueurs);
-        /*test(plateau,joueurs);
-        for(i=0;i<122;i++){
-            printf("num case:%i  |occupation : %i\n",plateau[i].nbcase,plateau[i].occupation);
-        
-        affichage(plateau,joueurs);*/
         if(tour<6){
             tour+=1;
         }
