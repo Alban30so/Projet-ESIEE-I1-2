@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<windows.h>
 //Ce code est celui du jeu en affichage console.
+//Ce code est celui du jeu en affichage console.
 typedef struct cases
 {
     int nbcase;//Numéro de la case
@@ -23,20 +24,25 @@ int sautbg(cases p[122],pions j[61],int pion);
 int sautbd(cases p[122],pions j[61],int pion);
 int saut(cases p[122],pions j[61],int pion,int dep);
 //Fonction permettant la réinitialisation du jeu et appelée au début pour remettre à 0 chaques variables
-void reset(cases p[122], pions j[61]){
+void resetplateau(cases p[122]){
     int i;
     for(i=0;i<122;i++){
         p[i].nbcase=0;
         p[i].equipe=0;
         p[i].occupation=0;
         p[i].aff='.';
+    }
+}
+void reset(pions j[61]){
+    int i;
+    for(i=0;i<61;i++){
         j[i].nbpion=i;
         j[i].equipe=0;
         j[i].nom='0';
         j[i].pcase=0;
         j[i].win=0;
     }
-    printf("Toutes les cases ont ete reinitialisee corectement !\n");
+    //printf("Toutes les cases4 ont ete reinitialisee corectement !\n");
 }
 void saisiecases(cases p[122], pions j[61]){
     //cette fonciton saisie par défaut les cases pour un début de partie.
@@ -49,55 +55,53 @@ void saisiecases(cases p[122], pions j[61]){
 }
 void base(cases p[122]){
     int i;
-    for(i=0;i<122;i++){
-        //Deux joueurs ou plus : Equipe Bleu et Jaune
-        if(p[i].nbcase<=10&&p[i].nbcase>=0){
-            p[i].equipe=1;//Equipe Bleu
-        }
-        //Equipe jaune
-        if(p[i].nbcase>=112&&p[i].nbcase<=121){
-            p[i].equipe=6;
-        }
-        //Equipe blanche
-        if(p[i].nbcase==56||p[i].nbcase==45||p[i].nbcase==46){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=20&&p[i].nbcase<=23){
-            p[i].equipe=3;
-        }
-        else if(p[i].nbcase>=33&&p[i].nbcase<=35){
-            p[i].equipe=3;
-        }
-        //Equipe noire
-        if(p[i].nbcase==66||p[i].nbcase==76||p[i].nbcase==77){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=99&&p[i].nbcase<=102){
-            p[i].equipe=4;
-        }
-        else if(p[i].nbcase>=87&&p[i].nbcase<=89){
-            p[i].equipe=4;
-        }
-        //Equipe rouge
-        if(p[i].nbcase==47||p[i].nbcase==36||p[i].nbcase==37){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=14&&p[i].nbcase>=11){
-            p[i].equipe=2;
-        }
-        else if(p[i].nbcase<=26&&p[i].nbcase>=24){
-            p[i].equipe=2;
-        }
-        //Equipe verte
-        if(p[i].nbcase==75||p[i].nbcase==85||p[i].nbcase==86){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=96&&p[i].nbcase<=98){
-            p[i].equipe=5;
-        }
-        else if(p[i].nbcase>=108&&p[i].nbcase<=111){
-            p[i].equipe=5;
-        }
+    //Equipe Bleu
+    for(i=1;i<10;i++){
+        p[i].equipe=1;
+    }
+    //Equipe Rouge
+    for(i=11;i<14;i++){
+        p[i].equipe=2;
+    }
+    p[24].equipe=2;
+    p[25].equipe=2;
+    p[26].equipe=2;
+    p[36].equipe=2;
+    p[37].equipe=2;
+    p[47].equipe=2;
+    //Equipe Blanche
+    for(i=20;i<23;i++){
+        p[i].equipe=3;
+    }
+    p[33].equipe=3;
+    p[34].equipe=3;
+    p[35].equipe=3;
+    p[45].equipe=3;
+    p[46].equipe=3;
+    p[56].equipe=3;
+    //Equipe Cyan
+    for(i=99;i<102;i++){
+        p[i].equipe=4;
+    }
+    p[66].equipe=4;
+    p[76].equipe=4;
+    p[77].equipe=4;
+    p[87].equipe=4;
+    p[88].equipe=4;
+    p[89].equipe=4;
+    //Equipe Verte
+    for(i=108;i<111;i++){
+        p[i].equipe=5;
+    }
+    p[75].equipe=5;
+    p[85].equipe=5;
+    p[86].equipe=5;
+    p[96].equipe=5;
+    p[97].equipe=5;
+    p[98].equipe=5;
+    //Equipe jaune
+    for(i=112;i<121;i++){
+        p[i].equipe=6;
     }
 }
 void saisiedefaut(cases p[122],pions j[61]){
@@ -216,8 +220,13 @@ void attpion(cases p[122], pions j[61]){
                 c6+=1;
                 temp=2;
             }
+            else{
+                printf("");
+            }
         }
     }
+    printf("\n");
+    base(p);
 }
 void test(cases p[122], pions j[61]){
     int i;
@@ -252,46 +261,47 @@ int identification(pions j[61], cases p[122], int i){
     for(z=1;z<61;z++){
         if(p[i].nbcase==j[z].pcase){
             return z;
-            printf("Je suis rentre\n");
         }
     }
+    return 255;
 }
 void testcolor(pions j[61],int i, cases p[122]){
     int z, temp=0;
     int couleur;
     z=identification(j,p,i);
-    if(j[z].equipe==1){
+    if(z==255){
+        Color(15,0);
+        printf(". ");
+        Color(15,0);
+        temp=3;
+    }
+    if(j[z].equipe==1&&temp==0){
         couleur=1;
         temp=1;
     }
-    if(j[z].equipe==2){
+    if(j[z].equipe==2&&temp==0){
         couleur=4;
         temp=1;
     }
-    if(j[z].equipe==3){
+    if(j[z].equipe==3&&temp==0){
         couleur=15;
         temp=1;
     }
-    if(j[z].equipe==4){
+    if(j[z].equipe==4&&temp==0){
         couleur=11;
         temp=1;
     }
-    if(j[z].equipe==5){
+    if(j[z].equipe==5&&temp==0){
         couleur=2;
         temp=1;
     }
-    if(j[z].equipe==6){
+    if(j[z].equipe==6&&temp==0){
         couleur=14;
         temp=1;
     }
     if(temp==1){
-        Color(couleur,0);
+        Color(couleur,0&&temp==0);
         printf("%c ",j[z].nom);
-        Color(15,0);
-    }
-    else{
-        Color(15,0);
-        printf(". ");
         Color(15,0);
     }
 }
@@ -564,9 +574,9 @@ void affichage(cases p[122], pions j[61]){
     }
     printf("                   ---\n");
 }
-int recherchepion(pions j[21],int equipe, char numero){
+int recherchepion(pions j[61],int equipe, char numero){
     int i;
-    for(i=1;i<21;i++){
+    for(i=1;i<61;i++){
         if(j[i].equipe==equipe && j[i].nom==numero){
             return i;
         }
@@ -598,728 +608,1066 @@ int verifoccupation(cases p[122],int n){
     }
     return autorisation;
 }
-int dephg(cases p[122],pions j[61],int pion){
+int dephg(cases p[122],pions j[61],int pion,int exesaut){
     int erreur,n;
     if(j[pion].pcase==1||j[pion].pcase==2||j[pion].pcase==4||j[pion].pcase==7||j[pion].pcase==15||j[pion].pcase==14||j[pion].pcase==13||j[pion].pcase==12||j[pion].pcase==11||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==66||j[pion].pcase==76||j[pion].pcase==87||j[pion].pcase==99){
         return 1;
     }
-    if(j[pion].pcase==3&& p[1].occupation==0){
+    if(j[pion].pcase==3&& p[1].occupation==0&&exesaut==0){
         p[j[pion].pcase].occupation=0;
         j[pion].pcase=1;
         p[j[pion].pcase].occupation=1;
         return 0;
     }
+    else{
+        if(exesaut==1){
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
     if(j[pion].pcase==6||j[pion].pcase==5){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-3)==1){
+        if(verifoccupation(p,n-3)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase<11&& j[pion].pcase>7){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-4)==1){
+        if(verifoccupation(p,n-4)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
             p[j[pion].pcase].occupation=1;
             return 0;
         } 
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
         }
+        }
+    }
+    else{
+        erreur=1;
     }      
     if(j[pion].pcase<20 && j[pion].pcase>15){
         n=j[pion].pcase;
-        if(verifoccupation(p,n-9)==1){
+        if(verifoccupation(p,n-9)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
         }
+        }
+    }
+    else{
+        erreur=1;
     }
     if(j[pion].pcase>23&&j[pion].pcase<36){
-        if(verifoccupation(p,j[pion].pcase-13)==1){
+        if(verifoccupation(p,j[pion].pcase-13)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>35 && j[pion].pcase<47){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verifoccupation(p,j[pion].pcase-12)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>46 && j[pion].pcase<57){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verifoccupation(p,j[pion].pcase-11)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
+        }
         }
     }
     if(j[pion].pcase>56 && j[pion].pcase<66){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verifoccupation(p,j[pion].pcase-10)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
-    if(j[pion].pcase>66 && j[pion].pcase<76){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+    if(j[pion].pcase>66 && j[pion].pcase<76&&exesaut==0){
+        if(verifoccupation(p,j[pion].pcase-10)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>76 && j[pion].pcase<87){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verifoccupation(p,j[pion].pcase-11)&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>87 && j[pion].pcase<99){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verifoccupation(p,j[pion].pcase-12)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>99 && j[pion].pcase<112){
-        if(verifoccupation(p,j[pion].pcase-13)==1){
+        if(verifoccupation(p,j[pion].pcase-13)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-13;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
         }
+        }
+    }
+    else{
+        erreur=1;
     }
     if(j[pion].pcase>111 && j[pion].pcase<116){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verifoccupation(p,j[pion].pcase-9)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>115 && j[pion].pcase<119){
-        if(verifoccupation(p,j[pion].pcase-4)==1){
+        if(verifoccupation(p,j[pion].pcase-4)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-4;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==119 || j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verifoccupation(p,j[pion].pcase-3)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verifoccupation(p,j[pion].pcase-2)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
         }
+        }
     }
+    return erreur;
 }
-int depbg(cases p[61],pions j[61],int pion){
+int depbg(cases p[61],pions j[61],int pion,int exesaut){
     int erreur;
     if(j[pion].pcase==1){
-        if(verifoccupation(p,2)==1){
+        if(verifoccupation(p,2)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verifoccupation(p,j[pion].pcase+2)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verifoccupation(p,j[pion].pcase+2)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verifoccupation(p,j[pion].pcase+3)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
-        if(verifoccupation(p,j[pion].pcase+8)==1){
+        if(verifoccupation(p,j[pion].pcase+8)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verifoccupation(p,j[pion].pcase+12)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verifoccupation(p,j[pion].pcase+11)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verifoccupation(p,j[pion].pcase+10)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verifoccupation(p,j[pion].pcase+9)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verifoccupation(p,j[pion].pcase+9)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verifoccupation(p,j[pion].pcase+10)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verifoccupation(p,j[pion].pcase+11)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
-        if(verifoccupation(p,j[pion].pcase+8)){
+        if(verifoccupation(p,j[pion].pcase+8)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+8;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verifoccupation(p,j[pion].pcase+3)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verifoccupation(p,j[pion].pcase+2)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     if(j[pion].pcase==119){
-        if(verifoccupation(p,j[pion].pcase+1)==1){
+        if(verifoccupation(p,j[pion].pcase+1)==1&&exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+            return 2;
+        }
+        else{
             return 1;
+        }
         }
     }
     else{
         return 1;
     }
 }
-
-int dephd(cases p[122],pions j[61],int pion){
+int dephd(cases p[122],pions j[61],int pion, int exesaut){
     int erreur;
     if(j[pion].pcase==1||j[pion].pcase==3||j[pion].pcase==6||j[pion].pcase==10||j[pion].pcase==11||j[pion].pcase==12||j[pion].pcase==13||j[pion].pcase==14||j[pion].pcase==20||j[pion].pcase==21||j[pion].pcase==22||j[pion].pcase==23||j[pion].pcase==19||j[pion].pcase==35||j[pion].pcase==46||j[pion].pcase==56||j[pion].pcase==75||j[pion].pcase==86||j[pion].pcase==98||j[pion].pcase==111){
         erreur=1;
     }
     if(j[pion].pcase==2){
-        if(verifoccupation(p,1)==1){
+        if(verifoccupation(p,1)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=1;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==4||j[pion].pcase==5){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verifoccupation(p,j[pion].pcase-2)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==7||j[pion].pcase==8||j[pion].pcase==9){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verifoccupation(p,j[pion].pcase-3)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase<19&&j[pion].pcase>14){
-        if(verifoccupation(p,j[pion].pcase-8)==1){
+        if(verifoccupation(p,j[pion].pcase-8)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase<=35&&j[pion].pcase>=24){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verifoccupation(p,j[pion].pcase-12)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=46){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verifoccupation(p,j[pion].pcase-11)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=56){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verifoccupation(p,j[pion].pcase-10)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verifoccupation(p,j[pion].pcase-9)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=74){
-        if(verifoccupation(p,j[pion].pcase-9)==1){
+        if(verifoccupation(p,j[pion].pcase-9)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=76&&j[pion].pcase<=85){
-        if(verifoccupation(p,j[pion].pcase-10)==1){
+        if(verifoccupation(p,j[pion].pcase-10)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=97){
-        if(verifoccupation(p,j[pion].pcase-11)==1){
+        if(verifoccupation(p,j[pion].pcase-11)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=99&&j[pion].pcase<=110){
-        if(verifoccupation(p,j[pion].pcase-12)==1){
+        if(verifoccupation(p,j[pion].pcase-12)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=115){
-        if(verifoccupation(p,j[pion].pcase-8)==1){
+        if(verifoccupation(p,j[pion].pcase-8)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-8;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=116&&j[pion].pcase<=118){
-        if(verifoccupation(p,j[pion].pcase-3)==1){
+        if(verifoccupation(p,j[pion].pcase-3)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==119||j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-2)==1){
+        if(verifoccupation(p,j[pion].pcase-2)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==120){
-        if(verifoccupation(p,j[pion].pcase-1)==1){
+        if(verifoccupation(p,j[pion].pcase-1)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-1;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     return 1;
 }
-int depbd(cases p[122],pions j[61],int pion){
+int depbd(cases p[122],pions j[61],int pion,int exesaut){
     int erreur;
     if(j[pion].pcase==1){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verifoccupation(p,j[pion].pcase+2)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verifoccupation(p,j[pion].pcase+3)==1&& exesaut==0 ){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==2||j[pion].pcase==3){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verifoccupation(p,j[pion].pcase+3)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
+            if(exesaut==1){
+                return 2;
+            }
+            else{
             return 1;
+            }
         }
     }
     if(j[pion].pcase>=4&&j[pion].pcase<=6){
-        if(verifoccupation(p,j[pion].pcase+4)==1){
+        if(verifoccupation(p,j[pion].pcase+4)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+4;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
-        }
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
+        }      
     }
     if(j[pion].pcase>=7&&j[pion].pcase<=10){
-        if(verifoccupation(p,j[pion].pcase+9)==1){
+        if(verifoccupation(p,j[pion].pcase+9)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=11&&j[pion].pcase<=22){
-        if(verifoccupation(p,j[pion].pcase+13)==1){
+        if(verifoccupation(p,j[pion].pcase+13)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+13;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
+    
     if(j[pion].pcase>=24&&j[pion].pcase<=34){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verifoccupation(p,j[pion].pcase+12)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=36&&j[pion].pcase<=45){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verifoccupation(p,j[pion].pcase+11)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=47&&j[pion].pcase<=55){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verifoccupation(p,j[pion].pcase+10)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=57&&j[pion].pcase<=65){
-        if(verifoccupation(p,j[pion].pcase+10)==1){
+        if(verifoccupation(p,j[pion].pcase+10)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+10;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+            if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=66&&j[pion].pcase<=75){
-        if(verifoccupation(p,j[pion].pcase+11)==1){
+        if(verifoccupation(p,j[pion].pcase+11)==1 && exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+11;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=87&&j[pion].pcase<=98){
-        if(verifoccupation(p,j[pion].pcase+12)==1){
+        if(verifoccupation(p,j[pion].pcase+12)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+12;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=103&&j[pion].pcase<=106){
-        if(verifoccupation(p,j[pion].pcase+9)){
+        if(verifoccupation(p,j[pion].pcase+9)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+9;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase>=112&&j[pion].pcase<=114){
-        if(verifoccupation(p,j[pion].pcase+4)==1){
+        if(verifoccupation(p,j[pion].pcase+4)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+4;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==116||j[pion].pcase==117){
-        if(verifoccupation(p,j[pion].pcase+3)==1){
+        if(verifoccupation(p,j[pion].pcase+3)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+3;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     if(j[pion].pcase==119){
-        if(verifoccupation(p,j[pion].pcase+2)==1){
+        if(verifoccupation(p,j[pion].pcase+2)==1&& exesaut==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             return 0;
         }
         else{
-            return 1;
+             if(exesaut==1){
+                return 2;
+            }
+            else{
+                return 1;
+            }
         }
     }
     else{
@@ -2002,30 +2350,185 @@ int sautbg(cases p[122],pions j[61],int pion){
         return 1;
     }
 }
+int antisaut(cases p[122],pions j[61],int pion,int dep){
+    int interdit[17];
+    interdit[0]=1;
+    interdit[1]=2;
+    interdit[2]=4;
+    interdit[3]=7;
+    interdit[4]=11;
+    interdit[5]=24;
+    interdit[6]=36;
+    interdit[7]=47;
+    interdit[8]=57;
+    interdit[9]=66;
+    interdit[10]=76;
+    interdit[11]=87;
+    interdit[12]=99;
+    interdit[13]=112;
+    interdit[14]=116;
+    interdit[15]=119;
+    interdit[16]=121;
+    int interditd[17];
+    interdit[0]=3;
+    interdit[1]=6;
+    interdit[2]=10;
+    interdit[3]=23;
+    interdit[4]=35;
+    interdit[5]=46;
+    interdit[6]=56;
+    interdit[7]=65;
+    interdit[8]=75;
+    interdit[9]=86;
+    interdit[10]=98;
+    interdit[11]=111;
+    interdit[12]=115;
+    interdit[13]=118;
+    interdit[14]=120;
+    interdit[15]=121;
+    interdit[16]=1;
+    if(dep==1){
+        for(int i=0;i<31;i++){
+            if(pion==interdit[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    if(dep==2){
+        for(int i=0;i<31;i++){
+            if(pion==interdit[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+}
+int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
+    int erreur; 
+    switch (dep)
+        {
+        case 1://deplacement vers la gauche
+            if(p[j[pion].pcase-1].occupation==0){
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
+            }
+            else{
+                if(p[j[pion].pcase-2].occupation==0&&antisaut(p,j,pion,dep)==1){
+                    p[j[pion].pcase].occupation=0;
+                    j[pion].pcase=j[pion].pcase-2;
+                    p[j[pion].pcase].occupation=1;
+                    return 1;
+                }
+                else{
+                    printf("Erreur deplacmenet impossible\n");
+                    return 0;
+                }
+            }
+            break;
+        case 2 ://deplacement vers la droite
+            if(p[j[pion].pcase+1].occupation==0&&antisaut(p,j,pion,dep)==1){
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+            //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation); 
+            }
+            else{
+                if(p[j[pion].pcase+2].occupation==0){
+                    p[j[pion].pcase].occupation=0;
+                    j[pion].pcase=j[pion].pcase-2;
+                    p[j[pion].pcase].occupation=1;
+                    return 1;
+                }
+                else{
+                    printf("erreur, deplacement impossible\n");
+                    return 0;
+                }
+            }
+            break;
+        case 3 ://deplacement haut gauche
+            erreur=dephg(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=depbd(p,j,pion,exesaut);
+                printf("Deplacement impossibe, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            } 
+            break;
+        case 4 ://deplacement haut droite
+            erreur=dephd(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=depbg(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 5 ://deplacement bas gauche
+            erreur=depbg(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=dephd(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 6 ://deplacement bas droite
+            erreur=depbd(p,j,pion,exesaut);
+            if(erreur==0){
+                erreur=dephg(p,j,pion,exesaut);
+                printf("Deplacement impossible, ceci n'est pas un saut\n");
+                return 0;
+            }
+            else{
+                erreur=saut(p,j,pion,dep);
+                return 1;
+            }
+            break;
+        case 7 ://stop
+            return 0;
+        }
+}
 int saut(cases p[122],pions j[61],int pion,int dep){
     int erreur;
     switch (dep)
     {
     case 1://saut vers la gauche
-        if(p[j[pion].pcase-2].occupation==0){
+        //printf("case 1 \n");
+        //printf("%i\n",p[j[pion].pcase-2].occupation);
+        //printf("%i \n",j[pion].pcase);
+        if(p[j[pion].pcase-2].occupation==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
             erreur=0;
+            //affichage(p,j);
+            //printf("saluuuuut\n");
         }
         else{
             erreur=1;
+            printf("occupé\n");
         }
         return erreur;
         break;
     case 2://saut vers la droite
-        if(p[j[pion].pcase+2].occupation==0){
+        if(p[j[pion].pcase+2].occupation==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
             erreur=0;
         }
         else{
+            printf("occupé\n");
             erreur=1;
         }
         return erreur;
@@ -2037,63 +2540,102 @@ int saut(cases p[122],pions j[61],int pion,int dep){
     case 4://deplacement haut droit
         erreur=sauthd(p,j,pion);
         return erreur;
+    break;
     case 5://deplacement bas gauche
         erreur=sautbg(p,j,pion);
         return erreur;
+    break;
     case 6 ://deplacement bas droite
         erreur=sautbd(p,j,pion);
         return erreur;
+    break;
+    case 7://Passe le tour
+        printf("tour termin%c \n",130);
+        erreur=1;
     default:
         break;
     }
 }
 
-int deplacement(cases p[122],pions j[61],int dep,int pion,int tempo[1]){
+int deplacement(cases p[122],pions j[61],int dep,int pion){
     int erreur=0;
-    int ligne=0;
+    int ligne=0,nbsaut=0,exesaut=0,sot=0;
+        printf("exesaut=%i\n",exesaut);
         switch (dep)
         {
         case 1://deplacement vers la gauche
-            if(p[j[pion].pcase-1].occupation==0){
+            if(p[j[pion].pcase-1].occupation==0&&exesaut==0&&antisaut(p,j,pion,dep)==1){
                 p[j[pion].pcase].occupation=0;
                 j[pion].pcase=j[pion].pcase-1;
                 p[j[pion].pcase].occupation=1;
                 erreur=0;
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
             }
             else{
-                erreur=1;
+                if(exesaut==1){
+                    erreur=2;
+                }
+                else{
+                    erreur=1;
+                }
+                //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation);
             }
             break;
         case 2 ://deplacement vers la droite
-            if(p[j[pion].pcase+1].occupation==0){
+            if(p[j[pion].pcase+1].occupation==0&&exesaut==0&&antisaut(p,j,pion,dep)==1){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+1;
             p[j[pion].pcase].occupation=1;
-        }
+            //printf(" %i \n %i \n",j[pion].pcase, p[j[pion].pcase].occupation); 
+            }
         else{
-            erreur=1;
-        }
+            if(exesaut==1){
+                    erreur=2;
+                }
+                else{
+                    erreur=1;
+                }
+            }
             break;
         case 3 ://deplacement haut gauche
-            erreur=dephg(p,j,pion);
+            erreur=dephg(p,j,pion,exesaut);
+            printf("erreur : %i\n",erreur);
             break;
         case 4 ://deplacement haut droite
-            erreur=dephd(p,j,pion);
+        if(exesaut==0){
+            erreur=dephd(p,j,pion,exesaut);
+            printf("erreur : %i\n",erreur);
+        }
             break;
         case 5 ://deplacement bas gauche
-            erreur=depbg(p,j,pion);
+        if(exesaut==0){
+            erreur=depbg(p,j,pion,exesaut);
+            printf("erreur : %i\n",erreur);
+        }
             break;
         case 6 ://deplacement bas droite
-            erreur=depbd(p,j,pion);
+            erreur=depbd(p,j,pion,exesaut);
+            printf("erreur : %i\n",erreur);
             break;
         }
         if(erreur==1){
             erreur=saut(p,j,pion,dep);
+            exesaut=1;
+            nbsaut+=1;
         }
-        if(erreur==1){
+        if(erreur==2){
             printf("Erreur, deplacement impossible\n");
+            exesaut=0;
         }
-    tempo[0]=pion;
+        affichage(p,j);
+        if(exesaut==1){
+            do{
+                printf("Entrez le saut que vous souhaitez realiser\n entrez 7 pour arreter votre tour\n");
+                scanf("%i",&dep);
+                sot=enchainement(p,j,pion,dep,exesaut);
+                affichage(p,j);
+            }while(sot!=0);
+        }
     return erreur;
 }
 void restaurationsauvegarde(pions j[61]){
@@ -2129,7 +2671,7 @@ void createsave(pions j[61]){
     //printf("fermer document\n ");
     fclose(output); // close
 }
-void appelequipe(int tour){
+void wesh(int tour){
     if(tour==1) printf("Au tour de l'%cquipe bleu \n",130);
     if(tour==2) printf("Au tour de l'%cquipe rouge\n",130);
     if(tour==3) printf("Au tour de l'%cquipe blanc\n",130);
@@ -2137,31 +2679,11 @@ void appelequipe(int tour){
     if(tour==5) printf("Au tour de l'%cquipe vert\n",130);
     if(tour==6) printf("Au tour de l'%cquipe jaune\n",130);
 }
-int veriffin(cases p[122],pions j[41],int casep,int npion,int tour){
-    int i,temp=0;
-    if(p[casep].equipe!=0){
-        if(p[casep].equipe==j[npion].equipe){
-            return 1;
-        }
-        else{
-            j[npion].win=1;
-            return 1;
-        }
-    }
-    for(i=1;i<41;i++){
-        if(j[i].equipe==tour){
-            if(j[i].win==1){
-                temp+=1;
-            }
-        }
-    }
-    if(temp==10) return 0;
-}
 void Jeu6(){
     cases plateau[122];
     pions joueurs[61];
-    int tempo[1];
-    reset(plateau,joueurs);
+    reset(joueurs);
+    resetplateau(plateau);
     int i;
     for(i=0;i<122;i++){
         plateau[i].aff='.';
@@ -2174,28 +2696,26 @@ void Jeu6(){
     int run=1,tour=1,temp,dep;
     char rep='0';
     while(run==1){
-        appelequipe(tour);
+        wesh(tour);
         //do{
             printf("Veuillez Entrer la case :\n");
             fflush(stdin);
             scanf("%c",&rep);
         //}while(rep!='1'||rep!='2'||rep!='3'||rep!='4'||rep!='5'||rep!='6'||rep!='7'||rep!='8'||rep!='9'||rep!='0');
         temp=recherchepion(joueurs,tour,rep);
-        printf("Quel deplacement souhaitez vous faire ?\n");
-        printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter a gauche\nEntrez 4 pour monter a droite\nEntrez 5 pour descendre a gauche\nEntrez 6 pour descendre a droite\n");
+        printf("Quel d%cplacement souhaitez vous faire ?\n",130);
+        printf("Entrez 1 pour aller vers la gauche\nEntrez 2 pour aller vers la droite\nEntrez 3 pour monter %c gauche\nEntrez 4 pour monter %c droite\nEntrez 5 pour descendre %c gauche\nEntrez 6 pour descendre %c droite\n",133,133,133,133);
         do{
             scanf("%i",&dep);
-            erreur=deplacement(plateau,joueurs,dep,temp,tempo);
-            if(erreur==1){
-                erreur=saut(plateau,joueurs,dep,temp);
-            }
+            erreur=deplacement(plateau,joueurs,dep,temp);
+            //printf("dans boucle do while \n");
         }while(dep>7||erreur==1);
-        printf("Coucou\n");
         affichage(plateau,joueurs);
-        printf("Coucou2\n");
-        temp=tempo[0];
-        run=veriffin(plateau,joueurs,joueurs[temp].pcase,temp,tour);
-        printf("Coucou3\n");
+        /*test(plateau,joueurs);
+        for(i=0;i<122;i++){
+            printf("num case:%i  |occupation : %i\n",plateau[i].nbcase,plateau[i].occupation);
+        
+        affichage(plateau,joueurs);*/
         if(tour<6){
             tour+=1;
         }
