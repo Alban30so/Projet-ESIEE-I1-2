@@ -18,6 +18,7 @@ typedef struct pions
     int win;
 }pions;
 void attpion(cases p[122], pions j[61]);
+int dephg(cases p[122],pions j[61],int pion,int exesaut);
 int sauthd(cases p[122],pions j[61],int pion);
 int sauthg(cases p[122],pions j[61],int pion);
 int sautbg(cases p[122],pions j[61],int pion);
@@ -2370,23 +2371,23 @@ int antisaut(cases p[122],pions j[61],int pion,int dep){
     interdit[15]=119;
     interdit[16]=121;
     int interditd[17];
-    interdit[0]=3;
-    interdit[1]=6;
-    interdit[2]=10;
-    interdit[3]=23;
-    interdit[4]=35;
-    interdit[5]=46;
-    interdit[6]=56;
-    interdit[7]=65;
-    interdit[8]=75;
-    interdit[9]=86;
-    interdit[10]=98;
-    interdit[11]=111;
-    interdit[12]=115;
-    interdit[13]=118;
-    interdit[14]=120;
-    interdit[15]=121;
-    interdit[16]=1;
+    interditd[0]=3;
+    interditd[1]=6;
+    interditd[2]=10;
+    interditd[3]=23;
+    interditd[4]=35;
+    interditd[5]=46;
+    interditd[6]=56;
+    interditd[7]=65;
+    interditd[8]=75;
+    interditd[9]=86;
+    interditd[10]=98;
+    interditd[11]=111;
+    interditd[12]=115;
+    interditd[13]=118;
+    interditd[14]=120;
+    interditd[15]=121;
+    interditd[16]=1;
     if(dep==1){
         for(int i=0;i<31;i++){
             if(pion==interdit[i]){
@@ -2397,7 +2398,7 @@ int antisaut(cases p[122],pions j[61],int pion,int dep){
     }
     if(dep==2){
         for(int i=0;i<31;i++){
-            if(pion==interdit[i]){
+            if(pion==interditd[i]){
                 return 0;
             }
         }
@@ -2449,7 +2450,6 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
         case 3 ://deplacement haut gauche
             erreur=dephg(p,j,pion,exesaut);
             if(erreur==0){
-                erreur=depbd(p,j,pion,exesaut);
                 printf("Deplacement impossibe, ceci n'est pas un saut\n");
                 return 0;
             }
@@ -2461,7 +2461,6 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
         case 4 ://deplacement haut droite
             erreur=dephd(p,j,pion,exesaut);
             if(erreur==0){
-                erreur=depbg(p,j,pion,exesaut);
                 printf("Deplacement impossible, ceci n'est pas un saut\n");
                 return 0;
             }
@@ -2473,7 +2472,6 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
         case 5 ://deplacement bas gauche
             erreur=depbg(p,j,pion,exesaut);
             if(erreur==0){
-                erreur=dephd(p,j,pion,exesaut);
                 printf("Deplacement impossible, ceci n'est pas un saut\n");
                 return 0;
             }
@@ -2485,7 +2483,6 @@ int enchainement(cases p[122],pions j[61],int pion,int dep,int exesaut){
         case 6 ://deplacement bas droite
             erreur=depbd(p,j,pion,exesaut);
             if(erreur==0){
-                erreur=dephg(p,j,pion,exesaut);
                 printf("Deplacement impossible, ceci n'est pas un saut\n");
                 return 0;
             }
@@ -2506,7 +2503,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
         //printf("case 1 \n");
         //printf("%i\n",p[j[pion].pcase-2].occupation);
         //printf("%i \n",j[pion].pcase);
-        if(p[j[pion].pcase-2].occupation==0&&antisaut(p,j,pion,dep)==1){
+        if(p[j[pion].pcase-2].occupation==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase-2;
             p[j[pion].pcase].occupation=1;
@@ -2521,7 +2518,7 @@ int saut(cases p[122],pions j[61],int pion,int dep){
         return erreur;
         break;
     case 2://saut vers la droite
-        if(p[j[pion].pcase+2].occupation==0&&antisaut(p,j,pion,dep)==1){
+        if(p[j[pion].pcase+2].occupation==0){
             p[j[pion].pcase].occupation=0;
             j[pion].pcase=j[pion].pcase+2;
             p[j[pion].pcase].occupation=1;
@@ -2621,7 +2618,6 @@ int deplacement(cases p[122],pions j[61],int dep,int pion){
         if(erreur==1){
             erreur=saut(p,j,pion,dep);
             exesaut=1;
-            nbsaut+=1;
         }
         if(erreur==2){
             printf("Erreur, deplacement impossible\n");
